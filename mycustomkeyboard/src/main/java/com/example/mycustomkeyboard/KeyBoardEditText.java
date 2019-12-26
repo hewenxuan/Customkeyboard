@@ -333,8 +333,10 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 //                listener.show();
 //            }
 //        }
-        if(KeyBoardUtilNoEdittext.getKeyBoardEditText()!=null){
-            KeyBoardUtilNoEdittext.getKeyBoardEditText().hide();
+        if(KeyBoardUtilNoEdittext.texts.size()>0){
+            for(KeyBoardEditText t:KeyBoardUtilNoEdittext.texts){
+                t.hide();
+            }
         }
         if(KeyBoardUtil.getKeyBoardEditText()!=null){
             KeyBoardUtil.getKeyBoardEditText().hide();

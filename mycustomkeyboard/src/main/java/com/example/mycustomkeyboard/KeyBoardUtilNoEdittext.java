@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 软键盘工具类不带edittext，需要传进来
  *
@@ -20,6 +23,8 @@ public class KeyBoardUtilNoEdittext {
     private static KeyBoardEditText text;
     private static KeyboardView keyboardView;
     private static LinearLayout viewGroup;
+
+    public static List<KeyBoardEditText> texts=new ArrayList<KeyBoardEditText>();
     /**
      * 初始化键盘view
      * @param mContext Activity
@@ -68,17 +73,20 @@ public class KeyBoardUtilNoEdittext {
         if(keyboard_num > 4){//键盘模式只能到4
             return false;
         }
+        if(!texts.contains(edit)){
+            texts.add(edit);
+        }
         LayoutInflater factory = LayoutInflater.from(mContext);
         View layout = factory.inflate(R.layout.keyboard_noedit, null);
         ViewGroup vg= (ViewGroup) mContext .getWindow().getDecorView();
         vg.addView(layout);
 //        text = edit;
-        if(keyboardView == null){
-            keyboardView = layout.findViewById(R.id.view_keyboard);
-        }
-        if(viewGroup == null){
-            viewGroup =layout.findViewById(R.id.layout_main);
-        }
+//        if(keyboardView == null){
+        keyboardView = layout.findViewById(R.id.view_keyboard);
+//        }
+//        if(viewGroup == null){
+        viewGroup =layout.findViewById(R.id.layout_main);
+//        }
         edit.setKeyboardType(mContext,viewGroup,keyboardView,keyboard_num);
         return true;
     }
