@@ -1,0 +1,53 @@
+package com.customkeyboard.hl;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.inputmethodservice.KeyboardView;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.example.mycustomkeyboard.KeyBoardEditText;
+import com.example.mycustomkeyboard.KeyBoardUtil;
+import com.example.mycustomkeyboard.KeyBoardUtilNoEdittext;
+
+public class MainActivity extends AppCompatActivity {
+    private KeyBoardEditText text;
+    private KeyboardView keyboardView;
+    private LinearLayout layout;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+//        text = KeyBoardUtil.initView(this,1,"#10000000");
+//        text.setOnKeyBoardStateChangeListener(new KeyBoardEditText.OnKeyboardStateChangeListener(){
+//            @Override
+//            public void onkeyPress(int primaryCode) {
+//                Log.i("primaryCode","onPress--"+primaryCode);
+//                System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
+//                Toast.makeText(Main2Activity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        text.show();
+
+        KeyBoardUtil.initView(this,2,"#10000000",new KeyBoardEditText.OnKeyboardStateChangeListener(){
+            @Override
+            public void onkeyPress(int primaryCode) {
+                Log.i("primaryCode","onPress--"+primaryCode);
+                System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
+                Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+            }
+        });
+        KeyBoardUtil.show();
+
+        text = (KeyBoardEditText) findViewById(R.id.edText);
+        KeyBoardUtilNoEdittext.initView(this,2,text,"#3000ff00");
+//        mkeyBoardUtilNoEdittext.show();
+
+        KeyBoardEditText text1 = (KeyBoardEditText) findViewById(R.id.edText1);
+        KeyBoardUtilNoEdittext.initView(this,1,text1,"#300000ff");
+    }
+}
