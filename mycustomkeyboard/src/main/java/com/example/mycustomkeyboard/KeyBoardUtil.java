@@ -73,18 +73,9 @@ public class KeyBoardUtil {
         View layout = factory.inflate(R.layout.keyboard, null);
         ViewGroup vg= (ViewGroup) mContext .getWindow().getDecorView();
         vg.addView(layout);
-//        text = layout.findViewById(com.example.mycustomkeyboard.R.id.ed_main);
-//        keyboardView = layout.findViewById(com.example.mycustomkeyboard.R.id.view_keyboard);
-//        viewGroup =layout.findViewById(com.example.mycustomkeyboard.R.id.layout_main);
-        if(text == null){
-            text = layout.findViewById(com.example.mycustomkeyboard.R.id.ed_main);
-        }
-        if(keyboardView == null){
-            keyboardView = layout.findViewById(com.example.mycustomkeyboard.R.id.view_keyboard);
-        }
-        if(viewGroup == null){
-            viewGroup =layout.findViewById(com.example.mycustomkeyboard.R.id.layout_main);
-        }
+        text = layout.findViewById(com.example.mycustomkeyboard.R.id.ed_main);
+        keyboardView = layout.findViewById(com.example.mycustomkeyboard.R.id.view_keyboard);
+        viewGroup =layout.findViewById(com.example.mycustomkeyboard.R.id.layout_main);
         text.setKeyboardType(mContext,viewGroup,keyboardView,keyboard_num);
         return true;
     }
