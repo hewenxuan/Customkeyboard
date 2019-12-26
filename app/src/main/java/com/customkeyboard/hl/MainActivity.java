@@ -52,8 +52,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         text = (KeyBoardEditText) findViewById(R.id.edText);
-        KeyBoardUtilNoEdittext.initView(this,2,text,"#3000ff00");
-//        mkeyBoardUtilNoEdittext.show();
+        KeyBoardUtilNoEdittext.initView(this,2,text,"#3000ff00",new KeyBoardEditText.OnKeyboardStateChangeListener(){
+            @Override
+            public void onkeyPress(int primaryCode) {
+                Log.i("primaryCode","onPress--"+primaryCode);
+                System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
+                if(primaryCode == Keyboard.KEYCODE_DONE){
+                    Toast.makeText(MainActivity.this,text.getText().toString(),Toast.LENGTH_SHORT).show();
+                }else{
+//                    Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
         KeyBoardEditText text1 = (KeyBoardEditText) findViewById(R.id.edText1);
         KeyBoardUtilNoEdittext.initView(this,1,text1,"#300000ff");

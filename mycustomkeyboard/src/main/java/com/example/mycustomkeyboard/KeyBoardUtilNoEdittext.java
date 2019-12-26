@@ -61,7 +61,7 @@ public class KeyBoardUtilNoEdittext {
      * @param color 键盘背景色 #10000000
      * @param listener  监听器 KeyBoardEditText.OnKeyboardStateChangeListener
      */
-    public static void initView(Activity mContext,int keyboard_num,String color,KeyBoardEditText edit,KeyBoardEditText.OnKeyboardStateChangeListener listener){
+    public static void initView(Activity mContext,int keyboard_num,KeyBoardEditText edit,String color,KeyBoardEditText.OnKeyboardStateChangeListener listener){
         if(!init(mContext,keyboard_num,edit)){
             return ;
         }
@@ -80,7 +80,7 @@ public class KeyBoardUtilNoEdittext {
         View layout = factory.inflate(R.layout.keyboard_noedit, null);
         ViewGroup vg= (ViewGroup) mContext .getWindow().getDecorView();
         vg.addView(layout);
-//        text = edit;
+        text = edit;
 //        if(keyboardView == null){
         keyboardView = layout.findViewById(R.id.view_keyboard);
 //        }
