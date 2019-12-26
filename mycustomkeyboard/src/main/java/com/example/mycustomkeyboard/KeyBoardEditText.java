@@ -82,8 +82,6 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         keyboardLetter = new Keyboard(getContext(), R.xml.keyboard_letter);
         keyboardSymbol = new Keyboard(getContext(), R.xml.keyboard_symbol);
         keyboardRandomNumber = new Keyboard(getContext(), R.xml.keyboard_random_num);
-
-
         for (int i=0; i<arrays.length; i++) {
             noLists.add(arrays[i]);
         }
@@ -335,13 +333,11 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         hideSystemSoftInput();
+//        return super.onTouchEvent(event);
         if (event.getAction() == MotionEvent.ACTION_UP) {
-//            if (keyboardView.getVisibility() == VISIBLE) {
-//                hide();
-//            } else {
-//                show();
-//            }
             show();
+        }else{
+            return super.onTouchEvent(event);
         }
         return true;
     }
@@ -375,7 +371,12 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 
     /**隐藏系统软键盘*/
     private void hideSystemSoftInput() {
-//        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        InputMethodManager manager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
+//        View v = mContext.getWindow().peekDecorView();
+//        if (null != v) {
+//            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//        }
     }
 }

@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mycustomkeyboard.KeyBoardEditText;
@@ -85,5 +89,37 @@ public class MainActivity extends AppCompatActivity {
                 KeyBoardUtil.hide();
             }
         });
+
+        text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                System.out.println("beforeTextChanged="+charSequence.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                System.out.println("onTextChanged="+charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                System.out.println("afterTextChanged="+editable.toString());
+            }
+        });
+
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        System.out.println("您按下了onKeyDown："+event.getKeyCode());
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        System.out.println("您按下了dispatchKeyEvent："+event.getKeyCode());
+        return super.dispatchKeyEvent(event);
+    }
+
+
 }
