@@ -196,7 +196,9 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
             case Keyboard.KEYCODE_DONE://完成
                 keyboardView.setVisibility(View.GONE);
                 viewGroup.setVisibility(GONE);
-
+                if (listener != null) {
+                    listener.onkeyPress(primaryCode);
+                }
                 break;
             case Keyboard.KEYCODE_SHIFT://大小写切换
                 changeCapital(!isCapital);
@@ -307,6 +309,14 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     }
 
     public void show(){
+        if(KeyBoardUtilNoEdittext.texts.size()>0){
+            for(KeyBoardEditText t:KeyBoardUtilNoEdittext.texts){
+                t.hide();
+            }
+        }
+        if(KeyBoardUtil.getKeyBoardEditText()!=null){
+            KeyBoardUtil.getKeyBoardEditText().hide();
+        }
         if(keyboardView ==null||viewGroup ==null){
             return;
         }
@@ -325,31 +335,14 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         hideSystemSoftInput();
-//        if (event.getAction() == MotionEvent.ACTION_UP) {
-//            if (keyboardView.getVisibility() != VISIBLE) {
-//                keyboardView.setVisibility(VISIBLE);
-//                viewGroup.setVisibility(VISIBLE);
-//                if (listener != null)
-//                listener.show();
-//            }
-//        }
-        if(KeyBoardUtilNoEdittext.texts.size()>0){
-            for(KeyBoardEditText t:KeyBoardUtilNoEdittext.texts){
-                t.hide();
-            }
-        }
-        if(KeyBoardUtil.getKeyBoardEditText()!=null){
-            KeyBoardUtil.getKeyBoardEditText().hide();
-        }
-        show();
-//        if (event.getAction() == MotionEvent.ACTION_UP) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
 //            if (keyboardView.getVisibility() == VISIBLE) {
 //                hide();
 //            } else {
 //                show();
 //            }
-//        }
-//        hide();
+            show();
+        }
         return true;
     }
 

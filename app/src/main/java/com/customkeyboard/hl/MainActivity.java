@@ -2,9 +2,12 @@ package com.customkeyboard.hl;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -38,10 +41,15 @@ public class MainActivity extends AppCompatActivity {
             public void onkeyPress(int primaryCode) {
                 Log.i("primaryCode","onPress--"+primaryCode);
                 System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
-                Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+                if(primaryCode == Keyboard.KEYCODE_DONE){
+                    Toast.makeText(MainActivity.this,KeyBoardUtil.getKeyBoardEditText().getText().toString(),Toast.LENGTH_SHORT).show();
+                }else{
+//                    Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-        KeyBoardUtil.show();
+
 
         text = (KeyBoardEditText) findViewById(R.id.edText);
         KeyBoardUtilNoEdittext.initView(this,2,text,"#3000ff00");
@@ -49,5 +57,21 @@ public class MainActivity extends AppCompatActivity {
 
         KeyBoardEditText text1 = (KeyBoardEditText) findViewById(R.id.edText1);
         KeyBoardUtilNoEdittext.initView(this,1,text1,"#300000ff");
+
+
+        Button bt_soft=findViewById(R.id.bt_soft);
+        bt_soft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                KeyBoardUtil.show();
+            }
+        });
+        Button bt_soft1=findViewById(R.id.bt_soft1);
+        bt_soft1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                KeyBoardUtil.hide();
+            }
+        });
     }
 }
