@@ -81,7 +81,7 @@
         </Key>
 
         <Key
-            android:codes="-3"
+            android:codes="-4"
             android:keyLabel="隐藏"
             android:horizontalGap="2.5%p">
 

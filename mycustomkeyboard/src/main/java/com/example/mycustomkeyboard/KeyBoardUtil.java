@@ -138,6 +138,11 @@ public class KeyBoardUtil {
      */
     public static void hide (){
         if(text!=null){
+            if(KeyBoardUtilNoEdittext.texts.size()>0){
+                for(KeyBoardEditText t:KeyBoardUtilNoEdittext.texts){
+                    t.hide();
+                }
+            }
             text.hide();
         }
     }

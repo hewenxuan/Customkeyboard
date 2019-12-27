@@ -23,7 +23,9 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,10 +46,12 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     /**随机数字键盘*/
     private Keyboard keyboardRandomNumber;
 
-    public static int KeyBoard_NUM =1;
-    public static int KeyBoard_LETTER =2;
-    public static int KeyBoard_SMBOL =3;
-    public static int KeyBoard_Random_NUM =4;
+    public  int KeyBoard_NUM =1;
+    public  int KeyBoard_LETTER =2;
+    public  int KeyBoard_SMBOL =3;
+    public  int KeyBoard_Random_NUM =4;
+
+    public  int NowKeyBoardType = 1;
     private Activity mContext;
 
     private  ViewGroup viewGroup;
@@ -87,6 +91,48 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         }
     }
 
+    private void randomKeyboardNumber() {
+        List<Keyboard.Key> keyList = keyboardRandomNumber.getKeys();
+        // 查找出0-9的数字键
+        List<Keyboard.Key> newkeyList = new ArrayList<Keyboard.Key>();
+        for (int i = 0; i < keyList.size(); i++) {
+            if (keyList.get(i).label != null
+                    && isNumber(keyList.get(i).label.toString())) {
+                newkeyList.add(keyList.get(i));
+            }
+        }
+        // 数组长度
+        int count = newkeyList.size();
+        // 结果集
+        List<KeyModel> resultList = new ArrayList<KeyModel>();
+        // 用一个LinkedList作为中介
+        LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
+        // 初始化temp
+        for (int i = 0; i < count; i++) {
+            temp.add(new KeyModel(48 + i, i + ""));
+        }
+        // 取数
+        Random rand = new Random();
+        for (int i = 0; i < count; i++) {
+            int num = rand.nextInt(count - i);
+            resultList.add(new KeyModel(temp.get(num).getCode(),
+                    temp.get(num).getLable()));
+            temp.remove(num);
+        }
+        for (int i = 0; i < newkeyList.size(); i++) {
+            newkeyList.get(i).label = resultList.get(i).getLable();
+            newkeyList.get(i).codes[0] = resultList.get(i)
+                    .getCode();
+        }
+        //   hideKeyBoard();
+        keyboardView.setKeyboard(keyboardRandomNumber);
+    }
+
+    private boolean isNumber(String str) {
+        String wordstr = "0123456789";
+        return wordstr.contains(str);
+    }
+
 
     /**
      * 设置软键盘刚弹出的时候显示字母键盘还是数字键盘
@@ -95,6 +141,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param keyboard_num 键盘模式
      */
     public void setKeyboardType (Activity mContext,ViewGroup vg, KeyboardView kv, int keyboard_num) {
+        this.NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
         keyboardView = kv;
@@ -106,6 +153,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
             keyboardView.setKeyboard(keyboardSymbol);
         }else if (keyboard_num ==KeyBoard_Random_NUM){
             keyboardView.setKeyboard(keyboardRandomNumber);
+            randomKeyboardNumber();
         }
 
         //显示预览
@@ -118,6 +166,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param keyboard_num 键盘模式
      */
     public void setKeyboardType (int keyboard_num) {
+        this.NowKeyBoardType=keyboard_num;
         if (keyboard_num ==KeyBoard_NUM) {
             keyboardView.setKeyboard(keyboardNumber);
         } else if (keyboard_num ==KeyBoard_LETTER) {
@@ -318,6 +367,10 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         if(keyboardView ==null||viewGroup ==null){
             return;
         }
+        if(this.NowKeyBoardType == KeyBoard_Random_NUM){
+            randomKeyboardNumber();
+        }
+        System.out.println("keyboardView.getKeyboard()="+keyboardView.getKeyboard());
         this.requestFocus();
         keyboardView.setVisibility(VISIBLE);
         viewGroup.setVisibility(VISIBLE);
@@ -371,7 +424,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 
     /**隐藏系统软键盘*/
     private void hideSystemSoftInput() {
-        InputMethodManager manager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 //        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
 //        View v = mContext.getWindow().peekDecorView();

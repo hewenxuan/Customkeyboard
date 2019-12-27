@@ -88,6 +88,7 @@ public class KeyBoardUtilNoEdittext {
         viewGroup =layout.findViewById(R.id.layout_main);
 //        }
         edit.setKeyboardType(mContext,viewGroup,keyboardView,keyboard_num);
+
         return true;
     }
 
@@ -149,6 +150,9 @@ public class KeyBoardUtilNoEdittext {
      */
     public static void hide (){
         if(text!=null){
+            if(KeyBoardUtil.getKeyBoardEditText()!=null){
+                KeyBoardUtil.getKeyBoardEditText().hide();
+            }
             text.hide();
         }
     }
