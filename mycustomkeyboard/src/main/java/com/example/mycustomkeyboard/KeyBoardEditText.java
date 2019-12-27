@@ -85,7 +85,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         keyboardNumber = new Keyboard(getContext(), R.xml.keyboard_num);
         keyboardLetter = new Keyboard(getContext(), R.xml.keyboard_letter);
         keyboardSymbol = new Keyboard(getContext(), R.xml.keyboard_symbol);
-        keyboardRandomNumber = new Keyboard(getContext(), R.xml.keyboard_random_num);
+        keyboardRandomNumber = new Keyboard(getContext(), R.xml.keyboard_num);
         for (int i=0; i<arrays.length; i++) {
             noLists.add(arrays[i]);
         }

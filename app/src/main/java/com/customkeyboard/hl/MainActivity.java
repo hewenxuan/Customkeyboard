@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //方式二  四种键盘模式，可多个deittext 不同样式
         final KeyBoardEditText text1 = (KeyBoardEditText) findViewById(R.id.edText1);
-        KeyBoardUtilNoEdittext.initView(this,1,text1,"#3000ff00",new KeyBoardEditText.OnKeyboardStateChangeListener(){
+        KeyBoardUtilNoEdittext.initView(this,1,text1,"#00ff00",new KeyBoardEditText.OnKeyboardStateChangeListener(){
             @Override
             public void onkeyPress(int primaryCode) {
                 Log.i("primaryCode","onPress--"+primaryCode);
@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         KeyBoardEditText text2 = (KeyBoardEditText) findViewById(R.id.edText2);
-        KeyBoardUtilNoEdittext.initView(this,2,text2,"#300000ff");
+        KeyBoardUtilNoEdittext.initView(this,2,text2,"#0000ff");
 
         KeyBoardEditText text3 = (KeyBoardEditText) findViewById(R.id.edText3);
-        KeyBoardUtilNoEdittext.initView(this,3,text3,"#30ff0000");
+        KeyBoardUtilNoEdittext.initView(this,3,text3,"#ff0000");
 
         KeyBoardEditText text4 = (KeyBoardEditText) findViewById(R.id.edText4);
-        KeyBoardUtilNoEdittext.initView(this,4,text4,"#30ff00ff");
+        KeyBoardUtilNoEdittext.initView(this,4,text4,"#ff00ff");
 
 
         Button bt_soft=findViewById(R.id.bt_soft);
