@@ -148,6 +148,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param keyboard_num 键盘模式
      */
     public void setKeyboardType (Activity mContext,LinearLayout vg, KeyboardView kv, int keyboard_num) {
+        keyboard_num =KeyBoard_LETTER;
         this.NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
@@ -223,11 +224,8 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     }
 
     private void setPos(){
-        //System.out.println("-------------2"+viewGroup.getLayoutParams());
-
         Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
         int ori = mConfiguration.orientation; //获取屏幕方向
-
         int width =ScreenUtils.getScreenWidth(getContext());
         int height =ScreenUtils.getScreenHeight(getContext()) - ScreenUtils.getStatusHeight(getContext());//屏幕高度-状态栏
         RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) viewGroup.getLayoutParams();
@@ -237,8 +235,8 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
             viewGroup.findViewById(R.id.tv_tip).setVisibility(View.GONE);//竖屏不让拖动
             viewGroup.findViewById(R.id.line).setVisibility(View.GONE);
         }else{
-            Params.width =height;
-            Params.rightMargin=30;
+            Params.width = height;
+//            Params.rightMargin=30;
 //            Params.topMargin=100;
 //            Params.bottomMargin=(height-Params.width)/2;
 //            Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -253,6 +251,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param keyboard_num 键盘模式
      */
     public void setKeyboardType (int keyboard_num) {
+//        keyboard_num =KeyBoard_LETTER;
         this.NowKeyBoardType=keyboard_num;
         if (keyboard_num ==KeyBoard_NUM) {
             keyboardView.setKeyboard(keyboardNumber);

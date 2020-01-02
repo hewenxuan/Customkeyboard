@@ -260,11 +260,7 @@
             android:horizontalGap="1%p">
 
         </Key>
-        <Key
-            android:codes="-204"
-            android:keyLabel="中"
-            android:keyWidth="20%p"
-            android:horizontalGap="1%p"/>
+
         <Key
             android:codes="-203"
             android:keyLabel="符"
