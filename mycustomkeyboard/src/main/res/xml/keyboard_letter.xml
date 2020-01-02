@@ -132,66 +132,70 @@
         <Key
             android:codes="97"
             android:keyLabel="a"
-            android:keyWidth="9%p"
-            android:horizontalGap="5.5%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="115"
             android:keyLabel="s"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="100"
             android:keyLabel="d"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="102"
             android:keyLabel="f"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="103"
             android:keyLabel="g"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="104"
             android:keyLabel="h"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="106"
             android:keyLabel="j"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="107"
             android:keyLabel="k"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
+
+            android:horizontalGap="1.81%p">
 
         </Key>
         <Key
             android:codes="108"
             android:keyLabel="l"
-            android:keyWidth="9%p"
-            android:horizontalGap="1%p">
 
+            android:horizontalGap="1.81%p">
         </Key>
+        <Key
+            android:codes="-203"
+            android:keyLabel="符"
+
+            android:horizontalGap="1.81%p"/>
     </Row>
     <Row android:verticalGap="1%p">
         <Key
@@ -261,16 +265,12 @@
 
         </Key>
 
-        <Key
-            android:codes="-203"
-            android:keyLabel="符"
-            android:keyWidth="20%p"
-            android:horizontalGap="1%p"/>
+
 
         <Key
             android:codes="32"
             android:keyLabel="space"
-            android:keyWidth="48%p"
+            android:keyWidth="60%p"
             android:horizontalGap="1%p">
 
         </Key>

@@ -37,7 +37,7 @@
     </Row>
 
     <Row>
-        <Key android:horizontalGap="3.5%p" android:keyWidth="9%p" android:codes="43" android:keyLabel="+" />
+        <Key  android:keyWidth="9%p" android:codes="43" android:keyLabel="+" />
         <Key android:keyWidth="9%p" android:codes="45" android:keyLabel="-" />
         <Key android:keyWidth="9%p" android:codes="92" android:keyLabel="\\" />
         <Key android:keyWidth="9%p" android:codes="47" android:keyLabel="/" />
@@ -45,7 +45,7 @@
         <Key android:keyWidth="9%p" android:codes="93" android:keyLabel="]" />
         <Key android:keyWidth="9%p" android:codes="123" android:keyLabel="{" />
         <Key android:keyWidth="9%p" android:codes="125" android:keyLabel="}" />
-        <Key android:horizontalGap="3.5%p" android:keyWidth="13%p" android:codes="-5"
+        <Key android:horizontalGap="3.5%p" android:keyWidth="15%p" android:codes="-5"
               android:isRepeatable="true"
              android:keyIcon="@mipmap/ic_delete" />
     </Row>

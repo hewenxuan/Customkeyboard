@@ -152,9 +152,30 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         this.NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
+        setPos();
+        keyboardView = kv;
+        if (keyboard_num ==KeyBoard_NUM) {
+            keyboardView.setKeyboard(keyboardNumber);
+        } else if (keyboard_num ==KeyBoard_LETTER) {
+            keyboardView.setKeyboard(keyboardLetter);
+        }else if (keyboard_num ==KeyBoard_SMBOL){
+            keyboardView.setKeyboard(keyboardSymbol);
+        }else if (keyboard_num ==KeyBoard_Random_NUM){
+            keyboardView.setKeyboard(keyboardRandomNumber);
+            randomKeyboardNumber();
+        }
+        //显示预览
+        keyboardView.setPreviewEnabled(true);
+        //为KeyboardView设置按键监听
+        keyboardView.setOnKeyboardActionListener(this);
+        setOnTouth();
+    }
+
+    private void setOnTouth(){
         screenHeight= ScreenUtils.getScreenHeight(getContext()) ;//获取屏幕宽度
         screenWidth= ScreenUtils.getScreenWidth(getContext());//屏幕高度-状态栏
         System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
+        viewGroup.setOnTouchListener(null);
         viewGroup.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -203,24 +224,6 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                 return true;
             }
         });
-
-        setPos();
-        keyboardView = kv;
-        if (keyboard_num ==KeyBoard_NUM) {
-            keyboardView.setKeyboard(keyboardNumber);
-        } else if (keyboard_num ==KeyBoard_LETTER) {
-            keyboardView.setKeyboard(keyboardLetter);
-        }else if (keyboard_num ==KeyBoard_SMBOL){
-            keyboardView.setKeyboard(keyboardSymbol);
-        }else if (keyboard_num ==KeyBoard_Random_NUM){
-            keyboardView.setKeyboard(keyboardRandomNumber);
-            randomKeyboardNumber();
-        }
-
-        //显示预览
-        keyboardView.setPreviewEnabled(true);
-        //为KeyboardView设置按键监听
-        keyboardView.setOnKeyboardActionListener(this);
     }
 
     private void setPos(){
@@ -316,12 +319,15 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                 break;
             case -201://切换数字键盘
                 keyboardView.setKeyboard(keyboardNumber);
+                setOnTouth();
                 break;
             case -202://切换字母键盘
                 keyboardView.setKeyboard(keyboardLetter);
+                setOnTouth();
                 break;
             case -203://切换字符键盘
                 keyboardView.setKeyboard(keyboardSymbol);
+                setOnTouth();
                 break;
             case -204://切换系统默认键盘
                 showInput(this);
