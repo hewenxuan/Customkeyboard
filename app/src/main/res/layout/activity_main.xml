@@ -14,6 +14,7 @@
         android:layout_marginBottom="10dp"
         android:textSize="25sp"
         android:textColor="#ffffff"
+        android:visibility="visible"
         android:background="@android:color/black"/>
     <com.example.mycustomkeyboard.KeyBoardEditText
         android:id="@+id/edText2"
@@ -22,6 +23,7 @@
         android:textSize="25sp"
         android:textColor="#ffffff"
         android:layout_marginBottom="10dp"
+        android:visibility="visible"
         android:background="@android:color/black"/>
     <com.example.mycustomkeyboard.KeyBoardEditText
         android:id="@+id/edText3"
@@ -29,12 +31,14 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:layout_marginBottom="10dp"
+        android:visibility="visible"
         android:textColor="#ffffff"
         android:background="@android:color/black"/>
     <com.example.mycustomkeyboard.KeyBoardEditText
         android:id="@+id/edText4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         android:textSize="25sp"
         android:textColor="#ffffff"
         android:background="@android:color/black"/>
@@ -44,11 +48,13 @@
         android:id="@+id/bt_soft"
         android:text="弹出"
         android:layout_centerHorizontal="true"
+        android:visibility="visible"
         android:layout_height="wrap_content"></Button>
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/bt_soft1"
         android:text="关闭"
+        android:visibility="visible"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"></Button>
 </LinearLayout>

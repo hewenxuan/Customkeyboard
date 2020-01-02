@@ -2,6 +2,7 @@ package com.example.mycustomkeyboard;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.hardware.input.InputManager;
 import android.inputmethodservice.Keyboard;
@@ -10,16 +11,20 @@ import android.inputmethodservice.KeyboardView;
 import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +59,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     public  int NowKeyBoardType = 1;
     private Activity mContext;
 
-    private  ViewGroup viewGroup;
+    private  LinearLayout viewGroup;
     private  KeyboardView keyboardView;
 
     /**是否为大写*/
@@ -133,6 +138,8 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         return wordstr.contains(str);
     }
 
+    private int screenWidth,screenHeight;
+    private int lastX,lastY;
 
     /**
      * 设置软键盘刚弹出的时候显示字母键盘还是数字键盘
@@ -140,10 +147,57 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param kv KeyboardView
      * @param keyboard_num 键盘模式
      */
-    public void setKeyboardType (Activity mContext,ViewGroup vg, KeyboardView kv, int keyboard_num) {
+    public void setKeyboardType (Activity mContext,LinearLayout vg, KeyboardView kv, int keyboard_num) {
         this.NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
+
+
+        screenWidth = ScreenUtils.getScreenWidth(getContext());//获取屏幕宽度
+        screenHeight = ScreenUtils.getScreenHeight(getContext()) - ScreenUtils.getStatusHeight(getContext());//屏幕高度-状态栏
+         
+        viewGroup.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int dx = (int) event.getRawX() - lastX;
+                        int dy = (int) event.getRawY() - lastY;
+                        int top = v.getTop() + dy;
+                        int left = v.getLeft() + dx;
+                        if (top <= 0) {
+                            top = 0;
+                        }
+                        if (top >= screenHeight - viewGroup.getHeight() ) {
+                            top = screenHeight - viewGroup.getHeight();
+                        }
+                        if (left >= screenWidth - viewGroup.getWidth()) {
+                            left = screenWidth - viewGroup.getWidth();
+                        }
+                        if (left <= 0) {
+                            left = 0;
+                        }
+                        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(v.getWidth(), v.getHeight());
+                        param.leftMargin = left;
+                        param.topMargin = top;
+                        v.setLayoutParams(param);
+//                        v.layout(left, top, left+v.getWidth(), top+v.getHeight());
+                        v.postInvalidate();
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        setPos();
         keyboardView = kv;
         if (keyboard_num ==KeyBoard_NUM) {
             keyboardView.setKeyboard(keyboardNumber);
@@ -161,6 +215,33 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         //为KeyboardView设置按键监听
         keyboardView.setOnKeyboardActionListener(this);
     }
+
+    private void setPos(){
+        //System.out.println("-------------2"+viewGroup.getLayoutParams());
+
+        Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
+
+        int width =ScreenUtils.getScreenWidth(getContext());
+        int height =ScreenUtils.getScreenHeight(getContext()) - ScreenUtils.getStatusHeight(getContext());//屏幕高度-状态栏
+        RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) viewGroup.getLayoutParams();
+        if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
+            Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            viewGroup.setOnTouchListener(null);
+            viewGroup.findViewById(R.id.tv_tip).setVisibility(View.GONE);//竖屏不让拖动
+            viewGroup.findViewById(R.id.line).setVisibility(View.GONE);
+        }else{
+            Params.width =height;
+            Params.rightMargin=30;
+//            Params.topMargin=100;
+//            Params.bottomMargin=(height-Params.width)/2;
+//            Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            Params.addRule(RelativeLayout.CENTER_VERTICAL);
+            Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
+        viewGroup.setLayoutParams(Params);
+    }
+
     /**
      * 设置软键盘刚弹出的时候显示字母键盘还是数字键盘
      * @param keyboard_num 键盘模式
@@ -424,8 +505,8 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 
     /**隐藏系统软键盘*/
     private void hideSystemSoftInput() {
-        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 //        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
 //        View v = mContext.getWindow().peekDecorView();
 //        if (null != v) {

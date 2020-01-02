@@ -9,9 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true"
         android:background="#00ffffff"
         android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="按下拖动"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:background="#30000000"
+            android:gravity="center_horizontal"
+            >
+        </TextView>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000"
+            android:gravity="center_horizontal"
+            >
+        </View>
         <include layout="@layout/content_keyboard"></include>
     </LinearLayout>
 

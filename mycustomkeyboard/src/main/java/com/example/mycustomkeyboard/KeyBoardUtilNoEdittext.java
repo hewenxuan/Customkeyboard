@@ -22,7 +22,7 @@ import java.util.List;
 public class KeyBoardUtilNoEdittext {
     private static KeyBoardEditText text;
     private static KeyboardView keyboardView;
-    private static LinearLayout viewGroup;
+    private static LinearLayout sLinearLayout;
 
     public static List<KeyBoardEditText> texts=new ArrayList<KeyBoardEditText>();
     /**
@@ -51,6 +51,7 @@ public class KeyBoardUtilNoEdittext {
             return ;
         }
         keyboardView.setBackgroundColor(Color.parseColor(color));
+        sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
     }
 
     /**
@@ -67,6 +68,7 @@ public class KeyBoardUtilNoEdittext {
         }
         text.setOnKeyBoardStateChangeListener(listener);
         keyboardView.setBackgroundColor(Color.parseColor(color));
+        sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
     }
 
     private static boolean init(Activity mContext,int keyboard_num,KeyBoardEditText edit){
@@ -85,9 +87,9 @@ public class KeyBoardUtilNoEdittext {
         keyboardView = layout.findViewById(R.id.view_keyboard);
 //        }
 //        if(viewGroup == null){
-        viewGroup =layout.findViewById(R.id.layout_main);
+        sLinearLayout =layout.findViewById(R.id.layout_main);
 //        }
-        edit.setKeyboardType(mContext,viewGroup,keyboardView,keyboard_num);
+        edit.setKeyboardType(mContext,sLinearLayout,keyboardView,keyboard_num);
 
         return true;
     }
@@ -109,6 +111,7 @@ public class KeyBoardUtilNoEdittext {
     public static void setBackgroundColor(String color){
         if(keyboardView!=null){
             keyboardView.setBackgroundColor(Color.parseColor(color));
+            sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
         }
     }
 

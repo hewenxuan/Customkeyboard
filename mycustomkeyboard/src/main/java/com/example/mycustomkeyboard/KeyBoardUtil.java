@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 public class KeyBoardUtil {
     private static KeyBoardEditText text;
     private static KeyboardView keyboardView;
-    private static LinearLayout viewGroup;
+    private static LinearLayout sLinearLayout;
     /**
      * 初始化键盘view
      * @param mContext Activity
@@ -45,6 +45,7 @@ public class KeyBoardUtil {
             return null;
         }
         keyboardView.setBackgroundColor(Color.parseColor(color));
+        sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
         return text;
     }
 
@@ -62,6 +63,7 @@ public class KeyBoardUtil {
         }
         text.setOnKeyBoardStateChangeListener(listener);
         keyboardView.setBackgroundColor(Color.parseColor(color));
+        sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
         return text;
     }
 
@@ -73,10 +75,11 @@ public class KeyBoardUtil {
         View layout = factory.inflate(R.layout.keyboard, null);
         ViewGroup vg= (ViewGroup) mContext .getWindow().getDecorView();
         vg.addView(layout);
-        text = layout.findViewById(com.example.mycustomkeyboard.R.id.ed_main);
-        keyboardView = layout.findViewById(com.example.mycustomkeyboard.R.id.view_keyboard);
-        viewGroup =layout.findViewById(com.example.mycustomkeyboard.R.id.layout_main);
-        text.setKeyboardType(mContext,viewGroup,keyboardView,keyboard_num);
+        text = layout.findViewById(R.id.ed_main);
+        keyboardView = layout.findViewById(R.id.view_keyboard);
+        sLinearLayout =layout.findViewById(R.id.layout_main);
+//        System.out.println("-------------1"+sLinearLayout.getLayoutParams());
+        text.setKeyboardType(mContext,sLinearLayout,keyboardView,keyboard_num);
         return true;
     }
 
@@ -97,6 +100,7 @@ public class KeyBoardUtil {
     public static void setBackgroundColor(String color){
         if(keyboardView!=null){
             keyboardView.setBackgroundColor(Color.parseColor(color));
+            sLinearLayout.findViewById(R.id.tv_tip).setBackgroundColor(Color.parseColor(color));
         }
     }
 
