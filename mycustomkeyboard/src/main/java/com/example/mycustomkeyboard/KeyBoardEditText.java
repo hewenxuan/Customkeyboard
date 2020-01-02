@@ -151,11 +151,9 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         this.NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
-
-
-        screenWidth = ScreenUtils.getScreenWidth(getContext());//获取屏幕宽度
-        screenHeight = ScreenUtils.getScreenHeight(getContext()) - ScreenUtils.getStatusHeight(getContext());//屏幕高度-状态栏
-         
+        screenHeight= ScreenUtils.getScreenHeight(getContext()) ;//获取屏幕宽度
+        screenWidth= ScreenUtils.getScreenWidth(getContext());//屏幕高度-状态栏
+        System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
         viewGroup.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -172,7 +170,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                         if (top <= 0) {
                             top = 0;
                         }
-                        if (top >= screenHeight - viewGroup.getHeight() ) {
+                        if (top  >= screenHeight - viewGroup.getHeight() ) {
                             top = screenHeight - viewGroup.getHeight();
                         }
                         if (left >= screenWidth - viewGroup.getWidth()) {
@@ -180,6 +178,9 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                         }
                         if (left <= 0) {
                             left = 0;
+                        }
+                        if(top < ScreenUtils.getStatusHeight(getContext())){
+                            top= ScreenUtils.getStatusHeight(getContext());
                         }
                         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(v.getWidth(), v.getHeight());
                         param.leftMargin = left;
@@ -191,6 +192,11 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                         lastY = (int) event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
+                        System.out.println("helong_viewGroup.getHeight()===="+viewGroup.getHeight());
+                        System.out.println("helong_v.getHeight()===="+v.getHeight());
+                        System.out.println("helong_viewGroup.getWidth()===="+viewGroup.getWidth());
+                        System.out.println("helong_v.getWidth()===="+v.getWidth());
+                        System.out.println("helong_top===="+v.getTop());
                         break;
                 }
                 return true;
@@ -505,8 +511,8 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 
     /**隐藏系统软键盘*/
     private void hideSystemSoftInput() {
-//        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 //        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
 //        View v = mContext.getWindow().peekDecorView();
 //        if (null != v) {
