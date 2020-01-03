@@ -8,6 +8,7 @@ import android.hardware.input.InputManager;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -205,7 +207,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
     private void setOnTouth(){
         screenHeight= ScreenUtils.getScreenHeight(getContext()) ;//获取屏幕宽度
         screenWidth= ScreenUtils.getScreenWidth(getContext());//屏幕高度-状态栏
-//        System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
+        System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
         viewGroup.setOnTouchListener(null);
         viewGroup.setOnTouchListener(new View.OnTouchListener(){
             @Override
@@ -229,7 +231,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                         if (left >= screenWidth - viewGroup.getWidth()) {
                             left = screenWidth - viewGroup.getWidth();
                         }
-                        if (left <= 0) {
+                        if (left < 0) {
                             left = 0;
                         }
                         if(top < ScreenUtils.getStatusHeight(getContext())){
@@ -273,14 +275,13 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 //            Params.width = height;
 //            Params.rightMargin=30;
 //            Params.topMargin=100;
+//            Params.leftMargin=960;
 //            Params.bottomMargin=(height-Params.width)/2;
             Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            Params.addRule(RelativeLayout.CENTER_VERTICAL);
-            Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-
-//            viewGroup.setScaleX(0.5f);// x方向上缩放
-
+            Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//            Params.addRule(RelativeLayout.CENTER_VERTICAL);
+//            Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//            keyboardView.setScaleX(0.5f);
         }
         viewGroup.setLayoutParams(Params);
     }
@@ -386,26 +387,20 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                 }
                 break;
             case -201://切换数字键盘
-//                keyboardView.setKeyboard(keyboardNumber);
                 setKeyboardType(KeyBoard_NUM);
 //                viewGroup.postInvalidate();
-//                setPos();
                 setOnTouth();
 //                keyboardView.postInvalidate();
                 break;
             case -202://切换字母键盘
-//                keyboardView.setKeyboard(keyboardLetter);
                 setKeyboardType(KeyBoard_LETTER);
 //                viewGroup.postInvalidate();
-//                setPos();
                 setOnTouth();
 //                keyboardView.postInvalidate();
                 break;
             case -203://切换字符键盘
-//                keyboardView.setKeyboard(keyboardSymbol);
                 setKeyboardType(KeyBoard_SMBOL);
 //                viewGroup.postInvalidate();
-//                setPos();
                 setOnTouth();
 //                keyboardView.postInvalidate();
                 break;
@@ -428,6 +423,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                 break;
         }
     }
+
 
     /**
      * 显示键盘

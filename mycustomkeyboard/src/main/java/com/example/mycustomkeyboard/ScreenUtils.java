@@ -24,7 +24,7 @@ public class ScreenUtils {
                 .getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
-        System.out.println("helong_屏幕宽度="+outMetrics.widthPixels);
+//        System.out.println("helong_屏幕宽度="+outMetrics.widthPixels);
         return outMetrics.widthPixels;
     }
 
@@ -38,7 +38,7 @@ public class ScreenUtils {
                 .getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
-        System.out.println("helong_屏幕高度="+outMetrics.heightPixels);
+//        System.out.println("helong_屏幕高度="+outMetrics.heightPixels);
         return outMetrics.heightPixels;
     }
 
@@ -59,7 +59,7 @@ public class ScreenUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("helong_状态栏高度="+statusHeight);
+//        System.out.println("helong_状态栏高度="+statusHeight);
         return statusHeight;
     }
 }
