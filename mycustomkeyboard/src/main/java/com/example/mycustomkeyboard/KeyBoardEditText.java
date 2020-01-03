@@ -148,33 +148,64 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      * @param keyboard_num 键盘模式
      */
     public void setKeyboardType (Activity mContext,LinearLayout vg, KeyboardView kv, int keyboard_num) {
-        keyboard_num =KeyBoard_LETTER;
-        this.NowKeyBoardType=keyboard_num;
+//        keyboard_num =KeyBoard_LETTER;
+        NowKeyBoardType=keyboard_num;
         this.mContext=mContext;
         viewGroup = vg;
-        setPos();
         keyboardView = kv;
-        if (keyboard_num ==KeyBoard_NUM) {
-            keyboardView.setKeyboard(keyboardNumber);
-        } else if (keyboard_num ==KeyBoard_LETTER) {
-            keyboardView.setKeyboard(keyboardLetter);
-        }else if (keyboard_num ==KeyBoard_SMBOL){
-            keyboardView.setKeyboard(keyboardSymbol);
-        }else if (keyboard_num ==KeyBoard_Random_NUM){
-            keyboardView.setKeyboard(keyboardRandomNumber);
-            randomKeyboardNumber();
+
+//        if (NowKeyBoardType ==KeyBoard_NUM) {
+//            keyboardView.setKeyboard(keyboardNumber);
+//        } else if (NowKeyBoardType ==KeyBoard_LETTER) {
+//            keyboardView.setKeyboard(keyboardLetter);
+//        }else if (NowKeyBoardType ==KeyBoard_SMBOL){
+//            keyboardView.setKeyboard(keyboardSymbol);
+//        }else if (NowKeyBoardType ==KeyBoard_Random_NUM){
+//            keyboardView.setKeyboard(keyboardRandomNumber);
+//            randomKeyboardNumber();
+//        }
+
+        Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
+        if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
+            if (NowKeyBoardType ==KeyBoard_NUM) {
+                keyboardView.setKeyboard(keyboardNumber);
+            } else if (NowKeyBoardType ==KeyBoard_LETTER) {
+                keyboardView.setKeyboard(keyboardLetter);
+            }else if (NowKeyBoardType ==KeyBoard_SMBOL){
+                keyboardView.setKeyboard(keyboardSymbol);
+            }else if (NowKeyBoardType ==KeyBoard_Random_NUM){
+                keyboardView.setKeyboard(keyboardRandomNumber);
+                randomKeyboardNumber();
+            }
+        }else{
+            if (NowKeyBoardType ==KeyBoard_NUM) {
+                keyboardNumber = new Keyboard(getContext(), R.xml.keyboard_num_hor);
+                keyboardView.setKeyboard(keyboardNumber);
+            } else if (NowKeyBoardType ==KeyBoard_LETTER) {
+                keyboardLetter = new Keyboard(getContext(), R.xml.keyboard_letter_hor);
+                keyboardView.setKeyboard(keyboardLetter);
+            }else if (NowKeyBoardType ==KeyBoard_SMBOL){
+                keyboardSymbol = new Keyboard(getContext(), R.xml.keyboard_symbol_hor);
+                keyboardView.setKeyboard(keyboardSymbol);
+            }else if (NowKeyBoardType ==KeyBoard_Random_NUM){
+                keyboardRandomNumber = new Keyboard(getContext(), R.xml.keyboard_num_hor);
+                keyboardView.setKeyboard(keyboardRandomNumber);
+                randomKeyboardNumber();
+            }
         }
         //显示预览
         keyboardView.setPreviewEnabled(true);
+        keyboardView.setOnKeyboardActionListener(null);
         //为KeyboardView设置按键监听
         keyboardView.setOnKeyboardActionListener(this);
-        setOnTouth();
+
     }
 
     private void setOnTouth(){
         screenHeight= ScreenUtils.getScreenHeight(getContext()) ;//获取屏幕宽度
         screenWidth= ScreenUtils.getScreenWidth(getContext());//屏幕高度-状态栏
-        System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
+//        System.out.println("helong_应用宽="+screenWidth +"应用高："+screenHeight);
         viewGroup.setOnTouchListener(null);
         viewGroup.setOnTouchListener(new View.OnTouchListener(){
             @Override
@@ -214,11 +245,12 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                         lastY = (int) event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        System.out.println("helong_viewGroup.getHeight()===="+viewGroup.getHeight());
-                        System.out.println("helong_v.getHeight()===="+v.getHeight());
-                        System.out.println("helong_viewGroup.getWidth()===="+viewGroup.getWidth());
-                        System.out.println("helong_v.getWidth()===="+v.getWidth());
-                        System.out.println("helong_top===="+v.getTop());
+//                        System.out.println("helong_viewGroup.getHeight()===="+viewGroup.getHeight());
+//                        System.out.println("helong_v.getHeight()===="+v.getHeight());
+//                        System.out.println("helong_viewGroup.getWidth()===="+viewGroup.getWidth());
+//                        System.out.println("helong_v.getWidth()===="+v.getWidth());
+//                        System.out.println("helong_top===="+v.getTop());
+//                        System.out.println("helong_left===="+v.getLeft());
                         break;
                 }
                 return true;
@@ -238,13 +270,17 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
             viewGroup.findViewById(R.id.tv_tip).setVisibility(View.GONE);//竖屏不让拖动
             viewGroup.findViewById(R.id.line).setVisibility(View.GONE);
         }else{
-            Params.width = height;
+//            Params.width = height;
 //            Params.rightMargin=30;
 //            Params.topMargin=100;
 //            Params.bottomMargin=(height-Params.width)/2;
-//            Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             Params.addRule(RelativeLayout.CENTER_VERTICAL);
             Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+
+//            viewGroup.setScaleX(0.5f);// x方向上缩放
+
         }
         viewGroup.setLayoutParams(Params);
     }
@@ -255,16 +291,48 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
      */
     public void setKeyboardType (int keyboard_num) {
 //        keyboard_num =KeyBoard_LETTER;
-        this.NowKeyBoardType=keyboard_num;
-        if (keyboard_num ==KeyBoard_NUM) {
-            keyboardView.setKeyboard(keyboardNumber);
-        } else if (keyboard_num ==KeyBoard_LETTER) {
-            keyboardView.setKeyboard(keyboardLetter);
-        }else if (keyboard_num ==KeyBoard_SMBOL){
-            keyboardView.setKeyboard(keyboardSymbol);
-        }else if (keyboard_num ==KeyBoard_Random_NUM){
-            keyboardView.setKeyboard(keyboardRandomNumber);
+        NowKeyBoardType=keyboard_num;
+//        if (keyboard_num ==KeyBoard_NUM) {
+//            keyboardView.setKeyboard(keyboardNumber);
+//        } else if (keyboard_num ==KeyBoard_LETTER) {
+//            keyboardView.setKeyboard(keyboardLetter);
+//        }else if (keyboard_num ==KeyBoard_SMBOL){
+//            keyboardView.setKeyboard(keyboardSymbol);
+//        }else if (keyboard_num ==KeyBoard_Random_NUM){
+//            keyboardView.setKeyboard(keyboardRandomNumber);
+//        }
+
+        Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
+        if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
+            if (NowKeyBoardType ==KeyBoard_NUM) {
+                keyboardView.setKeyboard(keyboardNumber);
+            } else if (NowKeyBoardType ==KeyBoard_LETTER) {
+                keyboardView.setKeyboard(keyboardLetter);
+            }else if (NowKeyBoardType ==KeyBoard_SMBOL){
+                keyboardView.setKeyboard(keyboardSymbol);
+            }else if (NowKeyBoardType ==KeyBoard_Random_NUM){
+                keyboardView.setKeyboard(keyboardRandomNumber);
+                randomKeyboardNumber();
+            }
+        }else{
+            if (NowKeyBoardType ==KeyBoard_NUM) {
+                keyboardNumber = new Keyboard(getContext(), R.xml.keyboard_num_hor);
+                keyboardView.setKeyboard(keyboardNumber);
+            } else if (NowKeyBoardType ==KeyBoard_LETTER) {
+                keyboardLetter = new Keyboard(getContext(), R.xml.keyboard_letter_hor);
+                keyboardView.setKeyboard(keyboardLetter);
+            }else if (NowKeyBoardType ==KeyBoard_SMBOL){
+                keyboardSymbol = new Keyboard(getContext(), R.xml.keyboard_symbol_hor);
+                keyboardView.setKeyboard(keyboardSymbol);
+            }else if (NowKeyBoardType ==KeyBoard_Random_NUM){
+                keyboardRandomNumber = new Keyboard(getContext(), R.xml.keyboard_num_hor);
+                keyboardView.setKeyboard(keyboardRandomNumber);
+                randomKeyboardNumber();
+            }
         }
+
+
 
         //显示预览
         keyboardView.setPreviewEnabled(true);
@@ -318,16 +386,28 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
                 }
                 break;
             case -201://切换数字键盘
-                keyboardView.setKeyboard(keyboardNumber);
+//                keyboardView.setKeyboard(keyboardNumber);
+                setKeyboardType(KeyBoard_NUM);
+//                viewGroup.postInvalidate();
+//                setPos();
                 setOnTouth();
+//                keyboardView.postInvalidate();
                 break;
             case -202://切换字母键盘
-                keyboardView.setKeyboard(keyboardLetter);
+//                keyboardView.setKeyboard(keyboardLetter);
+                setKeyboardType(KeyBoard_LETTER);
+//                viewGroup.postInvalidate();
+//                setPos();
                 setOnTouth();
+//                keyboardView.postInvalidate();
                 break;
             case -203://切换字符键盘
-                keyboardView.setKeyboard(keyboardSymbol);
+//                keyboardView.setKeyboard(keyboardSymbol);
+                setKeyboardType(KeyBoard_SMBOL);
+//                viewGroup.postInvalidate();
+//                setPos();
                 setOnTouth();
+//                keyboardView.postInvalidate();
                 break;
             case -204://切换系统默认键盘
                 showInput(this);
@@ -459,13 +539,17 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
         if(keyboardView ==null||viewGroup ==null){
             return;
         }
-        if(this.NowKeyBoardType == KeyBoard_Random_NUM){
-            randomKeyboardNumber();
-        }
+
+        setOnTouth();
+
+//        if(this.NowKeyBoardType == KeyBoard_Random_NUM){
+//            randomKeyboardNumber();
+//        }
         System.out.println("keyboardView.getKeyboard()="+keyboardView.getKeyboard());
         this.requestFocus();
         keyboardView.setVisibility(VISIBLE);
         viewGroup.setVisibility(VISIBLE);
+        setPos();
 
     }
 
