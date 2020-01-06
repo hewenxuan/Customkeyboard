@@ -282,6 +282,7 @@ public class KeyBoardEditText extends EditText implements KeyboardView.OnKeyboar
 //            Params.addRule(RelativeLayout.CENTER_VERTICAL);
 //            Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 //            keyboardView.setScaleX(0.5f);
+//            viewGroup.setScaleX(0.5f);
         }
         viewGroup.setLayoutParams(Params);
     }
