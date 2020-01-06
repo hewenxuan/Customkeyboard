@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.mycustomkeyboard.KeyBoardEditText;
 import com.example.mycustomkeyboard.KeyBoardUtil;
 import com.example.mycustomkeyboard.KeyBoardUtilNoEdittext;
+import com.mykeyboard.KeyBoardUtils;
 
 public class MainActivity extends AppCompatActivity {
 //    private KeyBoardEditText text;
@@ -28,7 +29,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         //方式一 可获取到edittext对象进行操作
+        initMykeyboard();
+        initMycustomkeyboard();
+
+    }
+
+    //mykeyboard 用法
+    private void initMykeyboard(){
+        KeyBoardUtils.getInstance().initView(this,1,"#ff00ff");
+        KeyBoardUtils.getInstance().setOnKeyPressListenerListener(new KeyBoardUtils.OnKeyPressListener() {
+            @Override
+            public void onkeyPress(int primaryCode, String text) {
+                Log.i("primaryCode","onPress--"+primaryCode);
+                System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
+                if(primaryCode == Keyboard.KEYCODE_DONE){
+                    Toast.makeText(MainActivity.this,text,Toast.LENGTH_SHORT).show();
+                }else{
+//                    Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        KeyBoardUtils.getInstance().show();
+    }
+
+    //mycustomkeyboard 用法
+    private void initMycustomkeyboard(){
+        //方式一 可获取到edittext对象进行操作
 //        text = KeyBoardUtil.initView(this,1,"#10000000");
 //        text.setOnKeyBoardStateChangeListener(new KeyBoardEditText.OnKeyboardStateChangeListener(){
 //            @Override
@@ -112,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 //                System.out.println("afterTextChanged="+editable.toString());
 //            }
 //        });
-
     }
 
     @Override

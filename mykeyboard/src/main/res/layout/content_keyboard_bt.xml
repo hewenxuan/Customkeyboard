@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/layout_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#50ff0000"
+        android:orientation="vertical"
+        android:paddingBottom="3dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#30000000"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:clickable="true"
+                android:padding="3dp"
+                android:text="x 0.1"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="按下拖动"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:layout_marginRight="50dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/tv_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000"
+            android:gravity="center_horizontal"></View>
+
+        <LinearLayout
+            android:id="@+id/layout_zifu_com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt1"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt2"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt3"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt4"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt5"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt6"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt7"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt8"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt9"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt10"
+                    style="@style/bt_comment"
+
+                    ></Button>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt11"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt12"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt13"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt14"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt15"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt16"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt17"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt18"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt19"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt20"
+                    style="@style/bt_comment"></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt21"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt22"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt23"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt24"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt25"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt26"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt27"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt28"
+                    style="@style/bt_comment"></Button>
+
+                <Button
+                    android:id="@+id/bt29"
+                    style="@style/bt_comment"
+
+                    ></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/layout_zimuBttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="3dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/bt_zimuBttom1"
+                        style="@style/bt_comment"
+                        android:layout_weight="2"
+                        android:tag="-201"
+                        android:text="123"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zimuBttom2"
+                        style="@style/bt_comment"
+                        android:tag="-204"
+                        android:text="中"
+                        android:visibility="gone"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zimuBttom3"
+                        style="@style/bt_comment"
+                        android:layout_weight="7"
+                        android:tag="32"
+                        android:text="space"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zimuBttom4"
+                        style="@style/bt_comment"
+                        android:layout_weight="3"
+                        android:tag="-4"
+                        android:text="完成"></Button>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_zifuBttom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="3dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom1"
+                        style="@style/bt_comment"
+                        android:tag="-201"
+                        android:text="123"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom2"
+                        style="@style/bt_comment"
+                        android:tag="44"
+                        android:text=","></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom3"
+                        style="@style/bt_comment"
+                        android:tag="46"
+                        android:text="."></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom4"
+                        style="@style/bt_comment"
+                        android:tag="60"
+                        android:text="&#60;"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom5"
+                        style="@style/bt_comment"
+                        android:tag="62"
+                        android:text=">"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom6"
+                        style="@style/bt_comment"
+                        android:tag="8364"
+                        android:text="€"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom7"
+                        style="@style/bt_comment"
+                        android:tag="163"
+                        android:text="￡"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom8"
+                        style="@style/bt_comment"
+                        android:tag="165"
+                        android:text="¥"></Button>
+
+                    <Button
+                        android:id="@+id/bt_zifuBttom9"
+                        style="@style/bt_comment"
+                        android:tag="-202"
+                        android:text="abc"></Button>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="3dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_num1"
+                    style="@style/bt_comment"
+                    android:text="1"></Button>
+
+                <Button
+                    android:id="@+id/bt_num2"
+                    style="@style/bt_comment"
+                    android:text="2"></Button>
+
+                <Button
+                    android:id="@+id/bt_num3"
+                    style="@style/bt_comment"
+                    android:text="3"></Button>
+
+                <Button
+                    android:id="@+id/bt_num4"
+                    style="@style/bt_comment"
+                    android:text="删"></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_num5"
+                    style="@style/bt_comment"
+                    android:text="5"></Button>
+
+                <Button
+                    android:id="@+id/bt_num6"
+                    style="@style/bt_comment"
+                    android:text="6"></Button>
+
+                <Button
+                    android:id="@+id/bt_num7"
+                    style="@style/bt_comment"
+                    android:text="7"></Button>
+
+                <Button
+                    android:id="@+id/bt_num8"
+                    style="@style/bt_comment"
+                    android:text="0"></Button>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_num9"
+                    style="@style/bt_comment"
+                    android:text="7"></Button>
+
+                <Button
+                    android:id="@+id/bt_num10"
+                    style="@style/bt_comment"
+                    android:text="8"></Button>
+
+                <Button
+                    android:id="@+id/bt_num11"
+                    style="@style/bt_comment"
+                    android:text="9"></Button>
+
+                <Button
+                    android:id="@+id/bt_num12"
+                    style="@style/bt_comment"
+                    android:text="abc"></Button>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_num13"
+                    style="@style/bt_comment"
+                    android:layout_weight="3"
+                    android:text="space"></Button>
+
+                <Button
+                    android:id="@+id/bt_num14"
+                    style="@style/bt_comment"
+                    android:layout_weight="1"
+                    android:text="完成"></Button>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
