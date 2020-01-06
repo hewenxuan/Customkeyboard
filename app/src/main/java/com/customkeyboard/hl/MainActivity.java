@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     //mykeyboard 用法
     private void initMykeyboard(){
-        KeyBoardUtils.getInstance().initView(this,1,"#ff00ff");
+        KeyBoardUtils.getInstance().initView(this,1,"#30ff00ff");
         KeyBoardUtils.getInstance().setOnKeyPressListenerListener(new KeyBoardUtils.OnKeyPressListener() {
             @Override
             public void onkeyPress(int primaryCode, String text) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        KeyBoardUtils.getInstance().show();
+//        KeyBoardUtils.getInstance().show();
     }
 
     //mycustomkeyboard 用法
@@ -111,14 +111,16 @@ public class MainActivity extends AppCompatActivity {
         bt_soft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                KeyBoardUtil.show();
+//                KeyBoardUtil.show();
+                KeyBoardUtils.getInstance().show();
             }
         });
         Button bt_soft1=findViewById(R.id.bt_soft1);
         bt_soft1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                KeyBoardUtil.hide();
+//                KeyBoardUtil.hide();
+                KeyBoardUtils.getInstance().hide();
             }
         });
 

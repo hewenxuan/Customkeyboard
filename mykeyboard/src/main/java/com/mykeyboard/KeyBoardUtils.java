@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -122,7 +123,7 @@ public class KeyBoardUtils {
         init_zifu(rl_keyboard);//初始化字符
         init_shuzi(rl_keyboard);//初始化数字
         set_type(keyboard_Type);//根据类型选择显示的键盘
-
+        hide();
         return true;
     }
 
@@ -414,24 +415,56 @@ public class KeyBoardUtils {
      * 显示软键盘
      */
     public void show() {
-        if (rl_keyboard == null) {
+        if (rl_keyboard == null|| rl_keyboard.getVisibility()==View.VISIBLE) {
             return;
         }
         text_con = "";
-        rl_keyboard.setVisibility(View.VISIBLE);
-        set_type(keyboard_Type);//根据类型选择显示的键盘
-        isShow = true;
+
+        //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
+        final TranslateAnimation ctrlAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
+                TranslateAnimation.RELATIVE_TO_SELF, 1, TranslateAnimation.RELATIVE_TO_SELF, 0);
+        ctrlAnimation.setDuration(400l);     //设置动画的过渡时间
+        rl_keyboard.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rl_keyboard.setVisibility(View.VISIBLE);
+                set_type(keyboard_Type);//根据类型选择显示的键盘
+                rl_keyboard.startAnimation(ctrlAnimation);
+            }
+        }, 100);
+
+
+
+
+//        rl_keyboard.setVisibility(View.VISIBLE);
+//        set_type(keyboard_Type);//根据类型选择显示的键盘
+//        isShow = true;
     }
 
     /**
      * 隐藏软键盘
      */
     public void hide() {
-        if (rl_keyboard == null) {
+        if (rl_keyboard == null || rl_keyboard.getVisibility()!=View.VISIBLE) {
             return;
         }
-        rl_keyboard.setVisibility(View.GONE);
-        isShow = false;
+        //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
+        final TranslateAnimation ctrlAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
+                TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 1);
+        ctrlAnimation.setDuration(400l);     //设置动画的过渡时间
+        rl_keyboard.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rl_keyboard.setVisibility(View.GONE);
+                isShow = false;
+                rl_keyboard.startAnimation(ctrlAnimation);
+            }
+        }, 100);
+
+//        rl_keyboard.setVisibility(View.GONE);
+//        isShow = false;
     }
 
     /**
