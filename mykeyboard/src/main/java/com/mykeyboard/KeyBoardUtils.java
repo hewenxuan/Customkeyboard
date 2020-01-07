@@ -626,7 +626,9 @@ public class KeyBoardUtils {
         if(num == 1){
             Params.leftMargin=0;
             Params.rightMargin=0;
-            layout_con.setX(0);
+            if(devices_type == DEVICES_TYPE_TV){
+                layout_con.setX(0);//安卓掉用这个会显示不正常
+            }
         }
         layout_con.setLayoutParams(Params);
         //把得到的值保留1位小数四舍五入
