@@ -45,3 +45,6 @@
 1.导入moudelmycustomkeyboard
 2.App的 build.gradle dependencies 里面添加 implementation project(':mycustomkeyboard')    点击 Sync Now
 3.打完收工 
+
+#mykeyboard
+与edittext没关系的软键盘，完全自定义，布局采用button，设置tag为code，可以缩放，可以设置北京颜色，可以拖动，适配tv 和android，具体用法，看demo， 所有逻辑代码  KeyBoardUtils.java,可自行根据需求修改
