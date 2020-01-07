@@ -2,12 +2,15 @@ package com.mykeyboard;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.icu.text.DecimalFormat;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
+import android.view.FocusFinder;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 软键盘工具类带edittext
@@ -32,9 +37,10 @@ import java.math.BigDecimal;
  */
 public class KeyBoardUtils {
     private KeyBoardUtils() {
-
     }
-
+    public static String DEVICES_TYPE_ANDROID ="android";
+    public static String DEVICES_TYPE_TV ="tv";
+    private String devices_type = DEVICES_TYPE_ANDROID;
     private String text_con = "";
     private Activity mActivity;
     private OnKeyPressListener mListener;
@@ -88,10 +94,16 @@ public class KeyBoardUtils {
 
     private String FouceBg= "#00ff00";
 
-    private boolean init(final Activity mContext, int keyboard_Type) {
+    private List<View> views ;
+
+    private boolean isTipClickFocus = false;//0 没有选择中  1 选择中
+    private boolean init(final Activity mContext, int keyboard_Type,String devices_type) {
         if (keyboard_Type > 4) {//键盘模式只能到4
             return false;
         }
+        this.devices_type = devices_type;
+        views =new ArrayList<>();
+        views.clear();
         mActivity = mContext;
         this.keyboard_Type = keyboard_Type;
         LayoutInflater factory = LayoutInflater.from(mContext);
@@ -107,6 +119,7 @@ public class KeyBoardUtils {
         layout_con = rl_keyboard.findViewById(R.id.layout_con);
         tv_scale = rl_keyboard.findViewById(R.id.tv_scale);
         tv_scale.setTag("scaleX");
+        views.add(tv_scale);
         tv_scale.setOnClickListener(btnOnClickListener);
         tv_scale.setFocusable(true);
         tv_scale.setOnFocusChangeListener(new View.OnFocusChangeListener(){
@@ -131,7 +144,41 @@ public class KeyBoardUtils {
             tv_scale.setVisibility(View.VISIBLE);
             init_touthMove(layout_con);
             setKeyboardWidth(1f);
-
+            if(this.devices_type == DEVICES_TYPE_TV){//TV的话需要处理焦点问题
+                rl_keyboard.findViewById(R.id.tv_tip).setFocusable(true);
+                rl_keyboard.findViewById(R.id.tv_tip).setClickable(true);
+                rl_keyboard.findViewById(R.id.tv_tip).setTag("tv_tip");
+                rl_keyboard.findViewById(R.id.tv_tip).setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        if(b){
+                            view.setBackgroundColor(Color.parseColor(FouceBg));
+                        }else{
+                            view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                        }
+                    }
+                });
+                rl_keyboard.findViewById(R.id.tv_tip).setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        isTipClickFocus=!isTipClickFocus;
+                        if(isTipClickFocus ){
+                            layout_con.setBackgroundColor(Color.parseColor("#80000000"));
+                        }else{
+                            layout_con.setBackgroundColor(Color.parseColor("#00ffffff"));
+                        }
+                        setViewFocus(!isTipClickFocus);
+                    }
+                });
+            }else{//安卓端需要点击其他地方进行隐藏
+                rl_keyboard.setClickable(true);
+                rl_keyboard.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        hide();
+                    }
+                });
+            }
         }
         init_coms(rl_keyboard);
         init_zimu(rl_keyboard);//初始化字母
@@ -140,6 +187,75 @@ public class KeyBoardUtils {
         set_type(keyboard_Type);//根据类型选择显示的键盘
         hide();
         return true;
+    }
+
+    //设置焦点
+    private void setViewFocus(boolean b){
+        if(views ==null ||views.size()<=0){
+            return;
+        }
+        for(int i=0;i<views.size();i++){
+            views.get(i).setFocusable(b);
+        }
+    }
+
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        //判断当前 tip是否有焦点  没有返回false
+        if(isTipClickFocus&& event.getAction() == KeyEvent.ACTION_DOWN){
+//          System.out.println("您按下了dispatchKeyEvent："+event.getKeyCode());
+            screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
+            screenWidth = ScreenUtils.getScreenWidth(mActivity);//屏幕高度-状态栏
+//            System.out.println("===_状态栏=" +ScreenUtils.getStatusHeight(mActivity) );
+//            System.out.println("===_应用宽=" + screenWidth + "应用高：" + screenHeight);
+//            System.out.println("===_键盘宽=" + layout_con.getWidth() + "键盘高：" + layout_con.getHeight());
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) layout_con.getLayoutParams();
+            float top = layout_con.getX();
+            float left = layout_con.getY();
+//            System.out.println("====X=="+layout_con.getX()+ "====Y="+layout_con.getY());
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                    layout_con.setY(layout_con.getY()+10f);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_UP:
+                    layout_con.setY(layout_con.getY()-10f);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    layout_con.setX(layout_con.getX()+10f);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    layout_con.setX(layout_con.getX()-10f);
+                    break;
+            }
+            if(layout_con.getX()<0){
+                layout_con.setX(0f);
+            }
+            if(layout_con.getY()<0){
+                layout_con.setY(0f);
+            }
+            if(layout_con.getX() > screenWidth-layout_con.getWidth()){
+                layout_con.setX(screenWidth-layout_con.getWidth());
+            }
+            if(layout_con.getY() > screenHeight-layout_con.getHeight()){
+                layout_con.setY(screenHeight-layout_con.getHeight());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isTv(){
+//        rl_keyboard.findViewById(R.id.tv_tip).setFocusable(false);
+//        rl_keyboard.findViewById(R.id.tv_tip).setClickable(false);
+//        rl_keyboard.findViewById(R.id.tv_tip).setOnClickListener(null);
+        //可通过以下方法判断是否运行在TV设备上
+        UiModeManager uiModeManager = (UiModeManager) mActivity.getSystemService(mActivity.UI_MODE_SERVICE);
+        if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
+
+           return true;
+        } else {
+
+            return false;
+        }
     }
 
     /**
@@ -163,6 +279,7 @@ public class KeyBoardUtils {
             bt_coms[i] = view.findViewById(bt_coms_ids[i]);
             bt_coms[i].setOnClickListener(btnOnClickListener);
             bt_coms[i].setOnFocusChangeListener(mOnFocusChangeListener);
+            views.add(bt_coms[i]);
             bt_coms[i].setTag(com_codes_tag[i]);
         }
     }
@@ -184,8 +301,8 @@ public class KeyBoardUtils {
             bt_layout_zimuBttoms[i] = view.findViewById(bt_layout_zimuBttoms_ids[i]);
             bt_layout_zimuBttoms[i].setOnClickListener(btnOnClickListener);
             bt_layout_zimuBttoms[i].setOnFocusChangeListener(mOnFocusChangeListener);
+            views.add(bt_layout_zimuBttoms[i]);
         }
-
     }
 
     private void init_zifu(View view) {
@@ -194,9 +311,9 @@ public class KeyBoardUtils {
             bt_layout_zifuBttoms[i] = view.findViewById(bt_layout_zifuBttoms_ids[i]);
             bt_layout_zifuBttoms[i].setOnClickListener(btnOnClickListener);
             bt_layout_zifuBttoms[i].setOnFocusChangeListener(mOnFocusChangeListener);
+            views.add(bt_layout_zifuBttoms[i]);
         }
     }
-
 
     private void init_shuzi(View view) {
         //数字键盘初始化
@@ -204,9 +321,9 @@ public class KeyBoardUtils {
             bt_layout_num[i] = view.findViewById(bt_layout_num_ids[i]);
             bt_layout_num[i].setOnClickListener(btnOnClickListener);
             bt_layout_num[i].setOnFocusChangeListener(mOnFocusChangeListener);
+            views.add(bt_layout_num[i]);
             bt_layout_num[i].setTag(num_codes_tag[i]);
         }
-
     }
 
     private void set_type(int keyboard_Type) {
@@ -247,9 +364,6 @@ public class KeyBoardUtils {
         }
         return mKeyBoardUtils;
     }
-
-
-
 
     private OnClickListener btnOnClickListener = new OnClickListener() {
 
@@ -375,19 +489,12 @@ public class KeyBoardUtils {
                         lastY = (int) event.getRawY();
                         break;
                     case MotionEvent.ACTION_UP:
-//                        System.out.println("helong_viewGroup.getHeight()===="+viewGroup.getHeight());
-//                        System.out.println("helong_v.getHeight()===="+v.getHeight());
-//                        System.out.println("helong_viewGroup.getWidth()===="+viewGroup.getWidth());
-//                        System.out.println("helong_v.getWidth()===="+v.getWidth());
-//                        System.out.println("helong_top===="+v.getTop());
-//                        System.out.println("helong_left===="+v.getLeft());
                         break;
                 }
                 return true;
             }
         });
     }
-
 
     public interface OnKeyPressListener {
         void onkeyPress(int primaryCode, String text);
@@ -409,10 +516,11 @@ public class KeyBoardUtils {
      *
      * @param mContext     Activity
      * @param keyboard_num 显示键盘类型 1数字 2字母 3特殊字符 4 随机数字
-     * @return KeyBoardEditText
+     * @param devices_type  设备类型 安卓orTV  android  tv
+     *
      */
-    public void initView(Activity mContext, int keyboard_num) {
-        if (!init(mContext, keyboard_num)) {
+    public void initView(Activity mContext, int keyboard_num,String devices_type) {
+        if (!init(mContext, keyboard_num,devices_type)) {
             return;
         }
     }
@@ -422,16 +530,16 @@ public class KeyBoardUtils {
      *
      * @param mContext     Activity
      * @param keyboard_num 显示键盘类型 1数字 2字母 3特殊字符 4 随机数字
+     * @param devices_type  设备类型 安卓orTV  android  tv
      * @param color        键盘背景色 #10000000
-     * @return KeyBoardEditText
+     *
      */
-    public void initView(Activity mContext, int keyboard_num, String color) {
-        if (!init(mContext, keyboard_num)) {
+    public void initView(Activity mContext, int keyboard_num ,String color,String devices_type) {
+        if (!init(mContext, keyboard_num, devices_type)) {
             return;
         }
         setKeyboardBgColor(color);
     }
-
 
     /**
      * 设置软键盘刚弹出的时候显示字母键盘还是数字键盘
@@ -453,7 +561,6 @@ public class KeyBoardUtils {
             return;
         }
         text_con = "";
-
         //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
         final TranslateAnimation ctrlAnimation = new TranslateAnimation(
                 TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
@@ -467,13 +574,6 @@ public class KeyBoardUtils {
                 rl_keyboard.startAnimation(ctrlAnimation);
             }
         }, 100);
-
-
-
-
-//        rl_keyboard.setVisibility(View.VISIBLE);
-//        set_type(keyboard_Type);//根据类型选择显示的键盘
-//        isShow = true;
     }
 
     /**
@@ -496,9 +596,6 @@ public class KeyBoardUtils {
                 rl_keyboard.startAnimation(ctrlAnimation);
             }
         }, 100);
-
-//        rl_keyboard.setVisibility(View.GONE);
-//        isShow = false;
     }
 
     /**
@@ -535,19 +632,18 @@ public class KeyBoardUtils {
         int height = ScreenUtils.getScreenHeight(mActivity) - ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
         RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) layout_con.getLayoutParams();
         Params.width = (int) (width * num);
+        System.out.println("屏幕宽= "+width+" Params.width= "+ Params.width +"  缩放倍数= "+num);
         Params.height= height /2;
         Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
-        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         layout_con.setLayoutParams(Params);
-
-
         //把得到的值保留1位小数四舍五入
         BigDecimal bg3 = new BigDecimal(num);
         double f3 = bg3.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-
         tv_scale.setText("X" + f3);
+        layout_con.invalidate();
     }
 
     /**
