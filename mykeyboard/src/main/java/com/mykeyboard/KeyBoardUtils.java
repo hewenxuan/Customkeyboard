@@ -242,7 +242,7 @@ public class KeyBoardUtils {
         }
         return false;
     }
-    
+
     /**
      * 设置缩放
      *
@@ -619,10 +619,15 @@ public class KeyBoardUtils {
         Params.width = (int) (width * num);
         System.out.println("屏幕宽= "+width+" Params.width= "+ Params.width +"  缩放倍数= "+num);
         Params.height= height /2;
-        Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//        Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        if(num == 1){
+            Params.leftMargin=0;
+            Params.rightMargin=0;
+            layout_con.setX(0);
+        }
         layout_con.setLayoutParams(Params);
         //把得到的值保留1位小数四舍五入
         BigDecimal bg3 = new BigDecimal(num);
