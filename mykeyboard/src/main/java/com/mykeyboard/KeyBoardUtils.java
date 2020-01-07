@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
+
 /**
  * 软键盘工具类带edittext
  *
@@ -507,11 +509,11 @@ public class KeyBoardUtils {
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         layout_con.setLayoutParams(Params);
 
-        float scale = num;
-        @SuppressLint({"NewApi", "LocalSuppress"}) DecimalFormat fnum = new DecimalFormat("##0.0");
-        String dd = fnum.format(scale);
-        System.out.println(dd);
 
-        tv_scale.setText("X" + dd);
+        //把得到的值保留1位小数四舍五入
+        BigDecimal bg3 = new BigDecimal(num);
+        double f3 = bg3.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        tv_scale.setText("X" + f3);
     }
 }
