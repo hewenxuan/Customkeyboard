@@ -41,6 +41,7 @@ public class KeyBoardUtils {
     public static String DEVICES_TYPE_ANDROID ="android";
     public static String DEVICES_TYPE_TV ="tv";
     private String devices_type = DEVICES_TYPE_ANDROID;
+    private int COED_HIDE = -800;//隐藏回调code
     private String text_con = "";
     private Activity mActivity;
     private OnKeyPressListener mListener;
@@ -579,6 +580,9 @@ public class KeyBoardUtils {
                 rl_keyboard.setVisibility(View.GONE);
                 isShow = false;
                 rl_keyboard.startAnimation(ctrlAnimation);
+                if(mListener!=null){
+                    mListener.onkeyPress(COED_HIDE,"");
+                }
             }
         }, 100);
     }
