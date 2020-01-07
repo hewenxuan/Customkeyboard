@@ -242,22 +242,7 @@ public class KeyBoardUtils {
         }
         return false;
     }
-
-    private boolean isTv(){
-//        rl_keyboard.findViewById(R.id.tv_tip).setFocusable(false);
-//        rl_keyboard.findViewById(R.id.tv_tip).setClickable(false);
-//        rl_keyboard.findViewById(R.id.tv_tip).setOnClickListener(null);
-        //可通过以下方法判断是否运行在TV设备上
-        UiModeManager uiModeManager = (UiModeManager) mActivity.getSystemService(mActivity.UI_MODE_SERVICE);
-        if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
-
-           return true;
-        } else {
-
-            return false;
-        }
-    }
-
+    
     /**
      * 设置缩放
      *
