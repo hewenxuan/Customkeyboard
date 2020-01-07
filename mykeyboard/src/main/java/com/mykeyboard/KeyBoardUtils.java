@@ -86,6 +86,8 @@ public class KeyBoardUtils {
     private float scale_X = 1f;
     private TextView tv_scale;
 
+    private String FouceBg= "#00ff00";
+
     private boolean init(final Activity mContext, int keyboard_Type) {
         if (keyboard_Type > 4) {//键盘模式只能到4
             return false;
@@ -106,6 +108,17 @@ public class KeyBoardUtils {
         tv_scale = rl_keyboard.findViewById(R.id.tv_scale);
         tv_scale.setTag("scaleX");
         tv_scale.setOnClickListener(btnOnClickListener);
+        tv_scale.setFocusable(true);
+        tv_scale.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    view.setBackgroundColor(Color.parseColor(FouceBg));
+                }else{
+                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                }
+            }
+        });
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
         int ori = mConfiguration.orientation; //获取屏幕方向
         if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
@@ -149,16 +162,28 @@ public class KeyBoardUtils {
         for (int i = 0; i < bt_coms_ids.length; i++) {
             bt_coms[i] = view.findViewById(bt_coms_ids[i]);
             bt_coms[i].setOnClickListener(btnOnClickListener);
+            bt_coms[i].setOnFocusChangeListener(mOnFocusChangeListener);
             bt_coms[i].setTag(com_codes_tag[i]);
         }
-
     }
+
+    private View.OnFocusChangeListener mOnFocusChangeListener =new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean b) {
+              if(b){
+                  view.setBackgroundColor(Color.parseColor(FouceBg));
+              }else{
+                  view.setBackgroundResource(R.drawable.selector_keyboard_key);
+              }
+        }
+    };
 
     private void init_zimu(View view) {
         //字母最后一行
         for (int i = 0; i < bt_layout_zimuBttoms_ids.length; i++) {
             bt_layout_zimuBttoms[i] = view.findViewById(bt_layout_zimuBttoms_ids[i]);
             bt_layout_zimuBttoms[i].setOnClickListener(btnOnClickListener);
+            bt_layout_zimuBttoms[i].setOnFocusChangeListener(mOnFocusChangeListener);
         }
 
     }
@@ -168,6 +193,7 @@ public class KeyBoardUtils {
         for (int i = 0; i < bt_layout_zifuBttoms_ids.length; i++) {
             bt_layout_zifuBttoms[i] = view.findViewById(bt_layout_zifuBttoms_ids[i]);
             bt_layout_zifuBttoms[i].setOnClickListener(btnOnClickListener);
+            bt_layout_zifuBttoms[i].setOnFocusChangeListener(mOnFocusChangeListener);
         }
     }
 
@@ -177,6 +203,7 @@ public class KeyBoardUtils {
         for (int i = 0; i < bt_layout_num_ids.length; i++) {
             bt_layout_num[i] = view.findViewById(bt_layout_num_ids[i]);
             bt_layout_num[i].setOnClickListener(btnOnClickListener);
+            bt_layout_num[i].setOnFocusChangeListener(mOnFocusChangeListener);
             bt_layout_num[i].setTag(num_codes_tag[i]);
         }
 
@@ -194,6 +221,7 @@ public class KeyBoardUtils {
                 }
                 layout_zifuBttom.setVisibility(View.GONE);
                 layout_zimuBttom.setVisibility(View.VISIBLE);
+                bt_coms[0].requestFocus();
                 break;
             case 2://字符
                 for (int i = 0; i < zifus.length; i++) {
@@ -201,11 +229,12 @@ public class KeyBoardUtils {
                 }
                 layout_zifuBttom.setVisibility(View.VISIBLE);
                 layout_zimuBttom.setVisibility(View.GONE);
+                bt_coms[0].requestFocus();
                 break;
             case 3://数字
                 layout_zifu_com.setVisibility(View.GONE);
                 layout_num.setVisibility(View.VISIBLE);
-
+                bt_layout_num[0].requestFocus();
                 break;
             default:
                 break;
@@ -218,6 +247,9 @@ public class KeyBoardUtils {
         }
         return mKeyBoardUtils;
     }
+
+
+
 
     private OnClickListener btnOnClickListener = new OnClickListener() {
 
@@ -503,6 +535,7 @@ public class KeyBoardUtils {
         int height = ScreenUtils.getScreenHeight(mActivity) - ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
         RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) layout_con.getLayoutParams();
         Params.width = (int) (width * num);
+        Params.height= height /2;
         Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
         Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -516,4 +549,13 @@ public class KeyBoardUtils {
 
         tv_scale.setText("X" + f3);
     }
+
+    /**
+     * 设置按键获取焦点颜色
+     * @param bgColor  默认  "#00ff00"
+     */
+    public void setFouceBg(String bgColor){
+        this.FouceBg=bgColor;
+    }
+
 }

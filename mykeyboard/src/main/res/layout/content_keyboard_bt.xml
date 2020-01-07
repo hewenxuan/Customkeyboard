@@ -59,18 +59,21 @@
         <LinearLayout
             android:id="@+id/layout_zifu_com"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="2dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_marginRight="1dp"
+            android:layout_weight="0"
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/layout_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
@@ -121,9 +124,10 @@
             <LinearLayout
                 android:id="@+id/layout_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
@@ -171,10 +175,11 @@
             <LinearLayout
                 android:id="@+id/layout_3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="3dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -219,14 +224,15 @@
             <LinearLayout
                 android:id="@+id/layout_4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_weight="1"
                 android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/layout_zimuBttom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="3dp"
@@ -266,7 +272,7 @@
                 <LinearLayout
                     android:id="@+id/layout_zifuBttom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="3dp"
@@ -334,16 +340,19 @@
         <LinearLayout
             android:id="@+id/layout_num"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0"
             android:layout_marginTop="3dp"
             android:orientation="vertical"
             android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
+                android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
@@ -370,10 +379,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="3dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -400,8 +410,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
+                android:layout_weight="1"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
@@ -430,9 +441,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
@@ -450,7 +462,9 @@
 
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+
+       </LinearLayout>
 
 
 </RelativeLayout>
