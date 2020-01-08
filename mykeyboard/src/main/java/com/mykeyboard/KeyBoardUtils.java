@@ -9,6 +9,9 @@ import android.icu.text.DecimalFormat;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -103,6 +106,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 
     private List<View> views ;
 
+    private RecyclerView recycler_view;
+    private CandidateViewAdapter adapter;
+
     private boolean isTipClickFocus = false;//0 没有选择中  1 选择中
     private boolean init(final Activity mContext, int keyboard_Type,String devices_type) {
         if (keyboard_Type > 4) {//键盘模式只能到4
@@ -117,6 +123,15 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         rl_keyboard = factory.inflate(R.layout.content_keyboard_bt, null);
         ViewGroup vg = (ViewGroup) mContext.getWindow().getDecorView();
         vg.addView(rl_keyboard);
+
+        recycler_view=rl_keyboard.findViewById(R.id.recycler_view);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycler_view.setLayoutManager(layoutManager);
+        adapter = new CandidateViewAdapter(this);
+        recycler_view.setAdapter(adapter);
+
         text_con = "";
         isShow = false;
         layout_zimuBttom = rl_keyboard.findViewById(R.id.layout_zimuBttom);
@@ -390,9 +405,12 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 //            System.out.println("您按下了："+Character.toString((char) code)+"("+code+")");
             if (code > 0) {
                 text_con = text_con + Character.toString((char) code);
+                //判断为字母输入才走
+                ckManager.processInput( Character.toString((char) code).toCharArray());
+//                ckManager.processInput( new char[] { 'a' });
             }
             switch (code) {
-                case Keyboard.KEYCODE_DELETE://删除
+                case Keyboard.KEYCODE_DELETE://删除  如果是中文得看情况删除
                     if (text_con.length() >= 1) {
                         text_con = text_con.substring(0, text_con.length() - 1);
                     }
@@ -418,12 +436,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                     break;
             }
             System.out.println("您按下了=text_con=：" + text_con);
-            if (mListener != null && code > -200) {
+            if (mListener != null && code > -200) {//中文得时候不回调
                 mListener.onkeyPress(code, text_con);
-
-//                ckManager.processInput(text_con.toCharArray());
-                ckManager.processInput( new char[] { 'a' });
-
             }
         }
     };
@@ -667,17 +681,26 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
 
     @Override
-    public void candidateSelected(WnnWord candidate) {
-
+    public void candidateSelected(WnnWord wnnWord) {
+        String candidate = null;
+        if (wnnWord != null) {
+            candidate = wnnWord.candidate;
+        }
+        adapter.delData();
+        ckManager.candidateSelected(wnnWord);
+        if(mListener!=null){
+            mListener.onkeyPress(-999, candidate);
+        }
+        Toast.makeText(mActivity,candidate,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPinyinQueryed(PinyinQueryResult pyQueryResult) {
         if (pyQueryResult != null) {
-//            if(pyQueryResult.getCandidateList().size()>0){
-//                candidateContainer.setVisibility(View.VISIBLE);
-//                mCandidateView.setSuggestions(pyQueryResult.getCandidateList(), false, false);
-//            }
+            if(pyQueryResult.getCandidateList().size()>0){
+                adapter.addData(pyQueryResult.getCandidateList());
+                adapter.notifyDataSetChanged();
+            }
 //            String pinyin = pyQueryResult.getCurrentInput();
 //            updatePinyin(pinyin);
         }
