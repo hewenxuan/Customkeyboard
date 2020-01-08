@@ -652,7 +652,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) layout_con.getLayoutParams();
         Params.width = (int) (width * num);
         System.out.println("屏幕宽= "+width+" Params.width= "+ Params.width +"  缩放倍数= "+num);
-        Params.height= height /2;
+        Params.height= height /2 ;
 //        Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
