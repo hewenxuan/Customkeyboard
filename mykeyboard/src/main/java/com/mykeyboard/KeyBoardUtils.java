@@ -23,6 +23,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.googlecode.openwnn.legacy.CLOUDSONG.CloudKeyboardInputManager;
+import com.googlecode.openwnn.legacy.CLOUDSONG.OnCandidateSelected;
+import com.googlecode.openwnn.legacy.CLOUDSONG.OnPinyinQueryed;
+import com.googlecode.openwnn.legacy.CLOUDSONG.PinyinQueryResult;
+import com.googlecode.openwnn.legacy.WnnWord;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +41,7 @@ import java.util.List;
  * @author: helong
  * @date: 2020-1-6 09:57
  */
-public class KeyBoardUtils {
+public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private KeyBoardUtils() {
     }
     public static String DEVICES_TYPE_ANDROID ="android";
@@ -187,8 +193,12 @@ public class KeyBoardUtils {
         init_shuzi(rl_keyboard);//初始化数字
         set_type(keyboard_Type);//根据类型选择显示的键盘
         hide();
+        ckManager = new CloudKeyboardInputManager();
+        ckManager.setOnPinyinQueryed(this);
         return true;
     }
+
+    private  CloudKeyboardInputManager ckManager;
 
     //设置焦点
     private void setViewFocus(boolean b){
@@ -410,6 +420,10 @@ public class KeyBoardUtils {
             System.out.println("您按下了=text_con=：" + text_con);
             if (mListener != null && code > -200) {
                 mListener.onkeyPress(code, text_con);
+
+//                ckManager.processInput(text_con.toCharArray());
+                ckManager.processInput( new char[] { 'a' });
+
             }
         }
     };
@@ -481,6 +495,8 @@ public class KeyBoardUtils {
             }
         });
     }
+
+
 
     public interface OnKeyPressListener {
         void onkeyPress(int primaryCode, String text);
@@ -648,6 +664,23 @@ public class KeyBoardUtils {
      */
     public void setFouceBg(String bgColor){
         this.FouceBg=bgColor;
+    }
+
+    @Override
+    public void candidateSelected(WnnWord candidate) {
+
+    }
+
+    @Override
+    public void onPinyinQueryed(PinyinQueryResult pyQueryResult) {
+        if (pyQueryResult != null) {
+//            if(pyQueryResult.getCandidateList().size()>0){
+//                candidateContainer.setVisibility(View.VISIBLE);
+//                mCandidateView.setSuggestions(pyQueryResult.getCandidateList(), false, false);
+//            }
+//            String pinyin = pyQueryResult.getCurrentInput();
+//            updatePinyin(pinyin);
+        }
     }
 
 }
