@@ -379,7 +379,8 @@ public class KeyBoardUtils {
             }
 //            System.out.println("您按下了："+Character.toString((char) code)+"("+code+")");
             if (code > 0) {
-                text_con = text_con + Character.toString((char) code);
+//                text_con = text_con + Character.toString((char) code);
+                text_con = Character.toString((char) code);
             }
             switch (code) {
                 case Keyboard.KEYCODE_DELETE://删除

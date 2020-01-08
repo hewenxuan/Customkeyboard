@@ -389,17 +389,17 @@
                 <Button
                     android:id="@+id/bt_num5"
                     style="@style/bt_comment"
-                    android:text="5"></Button>
+                    android:text="4"></Button>
 
                 <Button
                     android:id="@+id/bt_num6"
                     style="@style/bt_comment"
-                    android:text="6"></Button>
+                    android:text="5"></Button>
 
                 <Button
                     android:id="@+id/bt_num7"
                     style="@style/bt_comment"
-                    android:text="7"></Button>
+                    android:text="6"></Button>
 
                 <Button
                     android:id="@+id/bt_num8"
