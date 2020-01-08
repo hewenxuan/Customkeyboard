@@ -404,7 +404,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             }
 //            System.out.println("您按下了："+Character.toString((char) code)+"("+code+")");
             if (code > 0) {
-                text_con = text_con + Character.toString((char) code);
+//                text_con = text_con + Character.toString((char) code);
+                text_con = Character.toString((char) code);
                 //判断为字母输入才走
                 ckManager.processInput( Character.toString((char) code).toCharArray());
 //                ckManager.processInput( new char[] { 'a' });
