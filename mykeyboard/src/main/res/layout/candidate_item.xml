@@ -4,7 +4,7 @@
     android:id="@+id/item_name"
     android:text="啊"
     android:layout_gravity="center_vertical"
-    android:background="#60000000"
+    android:background="#00000000"
     android:textColor="#ffffff"
     android:textStyle="bold"
     android:textSize="20sp"

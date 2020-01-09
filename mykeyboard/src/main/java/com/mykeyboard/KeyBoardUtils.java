@@ -55,7 +55,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private Activity mActivity;
     private OnKeyPressListener mListener;
     private static KeyBoardUtils mKeyBoardUtils;
-    private int keyboard_Type = -1;//  1 字母（默认小写字母）  2 字符  3 数字
+    private int keyboard_Type = -1;//  1 字母（默认小写字母）  2 字符  3 数字  4 中文
     private boolean isXiaoxie = true;//是否是小写字母
     private boolean isShow = false;
     private View rl_keyboard;//键盘父布局
@@ -108,6 +108,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 
     private RecyclerView recycler_view;
     private CandidateViewAdapter adapter;
+    private TextView tv_zh;
+//    private String tv_zh_text="";
 
     private boolean isTipClickFocus = false;//0 没有选择中  1 选择中
     private boolean init(final Activity mContext, int keyboard_Type,String devices_type) {
@@ -125,12 +127,16 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         vg.addView(rl_keyboard);
 
         recycler_view=rl_keyboard.findViewById(R.id.recycler_view);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recycler_view.setLayoutManager(layoutManager);
         adapter = new CandidateViewAdapter(this);
         recycler_view.setAdapter(adapter);
+        recycler_view.setVisibility(View.GONE);
+
+        tv_zh=rl_keyboard.findViewById(R.id.tv_zh);
+        tv_zh.setText("");
+        tv_zh.setVisibility(View.GONE);
 
         text_con = "";
         isShow = false;
@@ -154,16 +160,18 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 }
             }
         });
+        setScaleVisible(View.VISIBLE);//设置缩放是否隐藏
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
         int ori = mConfiguration.orientation; //获取屏幕方向
         if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
-            rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.GONE);
-            rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.GONE);
-            tv_scale.setVisibility(View.GONE);
+//            rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.GONE);
+//            rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.GONE);
+//            tv_scale.setVisibility(View.GONE);
+
         } else {
-            rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.VISIBLE);
-            rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.VISIBLE);
-            tv_scale.setVisibility(View.VISIBLE);
+//            rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.VISIBLE);
+//            rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.VISIBLE);
+//            tv_scale.setVisibility(View.VISIBLE);
             init_touthMove(layout_con);
             setKeyboardWidth(1f);
             if(this.devices_type == DEVICES_TYPE_TV){//TV的话需要处理焦点问题
@@ -211,6 +219,17 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         ckManager = new CloudKeyboardInputManager();
         ckManager.setOnPinyinQueryed(this);
         return true;
+    }
+    //设置缩放是否隐藏 竖屏隐藏  ，横屏有中文得时候隐藏
+    private void setScaleVisible(int isVisible){
+        Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
+        if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
+            isVisible= View.GONE;
+        }
+        rl_keyboard.findViewById(R.id.tv_tip).setVisibility(isVisible);
+        rl_keyboard.findViewById(R.id.tv_line).setVisibility(isVisible);
+        tv_scale.setVisibility(isVisible);
     }
 
     private  CloudKeyboardInputManager ckManager;
@@ -314,6 +333,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             bt_layout_zimuBttoms[i].setOnFocusChangeListener(mOnFocusChangeListener);
             views.add(bt_layout_zimuBttoms[i]);
         }
+        bt_layout_zimuBttoms[1].setText("英");
     }
 
     private void init_zifu(View view) {
@@ -349,6 +369,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 }
                 layout_zifuBttom.setVisibility(View.GONE);
                 layout_zimuBttom.setVisibility(View.VISIBLE);
+                bt_layout_zimuBttoms[1].setText("英");
+                bt_coms[20].setVisibility(View.VISIBLE);
                 bt_coms[0].requestFocus();
                 break;
             case 2://字符
@@ -357,12 +379,24 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 }
                 layout_zifuBttom.setVisibility(View.VISIBLE);
                 layout_zimuBttom.setVisibility(View.GONE);
+                bt_coms[20].setVisibility(View.VISIBLE);
                 bt_coms[0].requestFocus();
                 break;
             case 3://数字
                 layout_zifu_com.setVisibility(View.GONE);
                 layout_num.setVisibility(View.VISIBLE);
                 bt_layout_num[0].requestFocus();
+                break;
+            case 4://中文
+                isXiaoxie = true;
+                for (int i = 0; i < zimus_com_X.length; i++) {
+                    bt_coms[i].setText(zimus_com_X[i]);
+                }
+                layout_zifuBttom.setVisibility(View.GONE);
+                layout_zimuBttom.setVisibility(View.VISIBLE);
+                bt_layout_zimuBttoms[1].setText("中");
+                bt_coms[20].setVisibility(View.GONE);
+                bt_coms[0].requestFocus();
                 break;
             default:
                 break;
@@ -389,7 +423,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 }
                 if (view.getTag().toString().contains("code")) {
                     String[] strs = view.getTag().toString().split("code");
-                    if (keyboard_Type == 1) {//字母
+                    if (keyboard_Type == 1||keyboard_Type == 4) {//字母 或者中文
                         if (isXiaoxie) {
                             code = Integer.parseInt(strs[0]);
                         } else {
@@ -404,40 +438,72 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             }
 //            System.out.println("您按下了："+Character.toString((char) code)+"("+code+")");
             if (code > 0) {
-//                text_con = text_con + Character.toString((char) code);
+//              text_con = text_con + Character.toString((char) code);
                 text_con = Character.toString((char) code);
-                //判断为字母输入才走
-                ckManager.processInput( Character.toString((char) code).toCharArray());
-//                ckManager.processInput( new char[] { 'a' });
+                //判断为中文得时候才走中文输入法
+                if(keyboard_Type ==4){
+                    ckManager.processInput( Character.toString((char) code).toCharArray());
+//                  ckManager.processInput( new char[] { 'a' });
+                }
             }
             switch (code) {
                 case Keyboard.KEYCODE_DELETE://删除  如果是中文得看情况删除
                     if (text_con.length() >= 1) {
                         text_con = text_con.substring(0, text_con.length() - 1);
                     }
+                    if(keyboard_Type == 4 ){//中文得时候
+                        if (tv_zh.getText().toString().trim().length() > 0) {
+                            ckManager.processDel();//输入法管理器删除1个字符
+                            if(tv_zh.getText().length() == 0){//拼音为空得时候 候选词置空并且隐藏
+                                adapter.delData();
+                                recycler_view.setVisibility(View.GONE);
+                                setScaleVisible(View.VISIBLE);//显示缩放按钮
+                            }
+                            return;
+                        }
+                    }
                     break;
                 case -201://切换数字键盘
                     set_type(3);
-                    break;
+                    return;
                 case -202://切换字母键盘
                     set_type(1);
-                    break;
+                    return;
                 case -203://切换字符键盘
                     set_type(2);
-                    break;
-                case -204://切换系统默认键盘
+                    return;
+                case -204://切换中文
+                    if(keyboard_Type != 4){
+                        set_type(4);
+                    }else{
+                        set_type(1);
+                    }
                     break;
                 case Keyboard.KEYCODE_DONE://完成
-                    hide();
+                    if(keyboard_Type == 4){
+                        if(adapter!=null && adapter.getData().size()>0){ //如果候选词还有  按完成键额时候 ，默认选择第一个
+//                            ckManager.candidateSelected(adapter.getData().get(0));
+                            candidateSelected(adapter.getData().get(0));
+                            return;
+                        }
+                        if(adapter!=null && adapter.getData().size() == 0 && tv_zh.getText().length()>0){//候选词没有，但是拼音有
+                            updatePinyin("");
+                            ckManager.delAll();
+                            return;
+                        }
+                    }else{
+                        hide();
+                    }
                     break;
                 case Keyboard.KEYCODE_SHIFT://大小写切换
                     changeCapital(!isXiaoxie);
-                    break;
-                default:
-                    break;
+                    return;
             }
             System.out.println("您按下了=text_con=：" + text_con);
-            if (mListener != null && code > -200) {//中文得时候不回调
+            if (mListener != null && code > -200) {
+                if(keyboard_Type == 4 && code >0){ //中文按键字母不回传code
+                   return;
+                }
                 mListener.onkeyPress(code, text_con);
             }
         }
@@ -688,8 +754,10 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             candidate = wnnWord.candidate;
         }
         adapter.delData();
+        updatePinyin("");//拼音 置空并隐藏
         ckManager.candidateSelected(wnnWord);
-        if(mListener!=null){
+        setScaleVisible(View.VISIBLE);//显示缩放按钮
+        if(mListener!=null){//回掉传选中得文字
             mListener.onkeyPress(-999, candidate);
         }
         Toast.makeText(mActivity,candidate,Toast.LENGTH_SHORT).show();
@@ -699,12 +767,26 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     public void onPinyinQueryed(PinyinQueryResult pyQueryResult) {
         if (pyQueryResult != null) {
             if(pyQueryResult.getCandidateList().size()>0){
+                recycler_view.setVisibility(View.VISIBLE);
                 adapter.addData(pyQueryResult.getCandidateList());
                 adapter.notifyDataSetChanged();
+                setScaleVisible(View.GONE);
+            }else{
+                setScaleVisible(View.VISIBLE);
             }
-//            String pinyin = pyQueryResult.getCurrentInput();
-//            updatePinyin(pinyin);
+            String pinyin = pyQueryResult.getCurrentInput();
+            updatePinyin(pinyin);
         }
+    }
+
+    private void updatePinyin(String pinyin) {
+        tv_zh.setText(pinyin);
+        if(pinyin.length()>0){
+            tv_zh.setVisibility(View.VISIBLE);
+        }else{
+            tv_zh.setVisibility(View.GONE);
+        }
+
     }
 
 }

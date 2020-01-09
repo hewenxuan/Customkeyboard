@@ -41,6 +41,9 @@ class CandidateViewAdapter extends RecyclerView.Adapter<CandidateViewAdapter.Vie
         this.mList.clear();
         notifyDataSetChanged();
     }
+    public List<WnnWord> getData(){
+       return mList;
+    }
     public void setOnCandidateSelected(OnCandidateSelected candidateSelected) {
         this.mOnCandidateSelected = candidateSelected;
     }
