@@ -87,7 +87,7 @@ public class KeyBoardUtils {
     private Button[] bt_layout_num = new Button[14];
     private Integer[] bt_layout_num_ids = {R.id.bt_num1, R.id.bt_num2, R.id.bt_num3, R.id.bt_num4, R.id.bt_num5, R.id.bt_num6, R.id.bt_num7, R.id.bt_num8, R.id.bt_num9, R.id.bt_num10
             , R.id.bt_num11, R.id.bt_num12, R.id.bt_num13, R.id.bt_num14};
-    private String[] num_codes_tag = {"49", "50", "51", "-5", "52", "53", "54", "48", "55", "56", "57", "-202", "32", "-4"};
+    private String[] num_codes_tag = {"49", "50", "51", "-5", "52", "53", "54", "48", "55", "56", "57", "-202", "32", "10"};
 
     //缩放比例
     private float scale_X = 1f;
@@ -399,8 +399,8 @@ public class KeyBoardUtils {
                     break;
                 case -204://切换系统默认键盘
                     break;
-                case Keyboard.KEYCODE_DONE://完成
-                    hide();
+                case 10://完成
+//                    hide();
                     break;
                 case Keyboard.KEYCODE_SHIFT://大小写切换
                     changeCapital(!isXiaoxie);
