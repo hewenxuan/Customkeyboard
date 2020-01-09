@@ -20,16 +20,26 @@ import com.example.mycustomkeyboard.KeyBoardEditText;
 import com.example.mycustomkeyboard.KeyBoardUtil;
 import com.example.mycustomkeyboard.KeyBoardUtilNoEdittext;
 import com.mykeyboard.KeyBoardUtils;
+import com.mykeyboard.KeyCodeUtils;
 
 public class MainActivity extends AppCompatActivity {
 //    private KeyBoardEditText text;
 //    private KeyboardView keyboardView;
 //    private LinearLayout layout;
+     private TextView tv_test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        tv_test =findViewById(R.id.tv_test);
+        tv_test.setText("");
+        tv_test.setClickable(true);
+        tv_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyBoardUtils.getInstance().show();
+            }
+        });
         initMykeyboard();
 //        initMycustomkeyboard();
 
@@ -43,11 +53,22 @@ public class MainActivity extends AppCompatActivity {
             public void onkeyPress(int primaryCode, String text) {
                 Log.i("primaryCode","onPress--"+primaryCode);
                 System.out.println("您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")");
-                if(primaryCode == Keyboard.KEYCODE_DONE){
-                    Toast.makeText(MainActivity.this,text,Toast.LENGTH_SHORT).show();
-                }else{
-//                    Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+                if(primaryCode == KeyCodeUtils.KEY_COED_ZH){//如果是中文
+                    tv_test.setText(tv_test.getText()+text);
+                }else if(primaryCode == KeyCodeUtils.KEY_COED_DEL){//删除
+                    if(tv_test.getText().length()>0){
+                        tv_test.setText(tv_test.getText().toString().substring(0, tv_test.getText().toString().length() - 1));
+                    }
+                }else if(primaryCode == KeyCodeUtils.KEY_COED_ENTER){//回车
+                    tv_test.setText(tv_test.getText().toString()+"\n");
+                }else if(primaryCode >0 ){
+                    tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
                 }
+//                if(primaryCode == Keyboard.KEYCODE_DONE){
+//                    Toast.makeText(MainActivity.this,text,Toast.LENGTH_SHORT).show();
+//                }else{
+//                    Toast.makeText(MainActivity.this,"您按下了："+Character.toString((char) primaryCode)+"("+primaryCode+")",Toast.LENGTH_SHORT).show();
+//                }
             }
         });
         KeyBoardUtils.getInstance().show();

@@ -6,4 +6,11 @@
     android:background="@mipmap/bg_actives_rule"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:textColor="#ffffff"></TextView>
+
 </LinearLayout>
