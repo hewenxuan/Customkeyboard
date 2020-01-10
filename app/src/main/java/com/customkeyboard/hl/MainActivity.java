@@ -57,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else if(primaryCode == -10){//回车
                     tv_test.setText(tv_test.getText().toString()+"\n");
-                }else if(primaryCode >0 ){
+                }else if(primaryCode == -11){//空格
+//                   tv_test.setText(tv_test.getText().toString()+" ");
+                   tv_test.setText(tv_test.getText().toString()+Character.toString((char) 32));
+               }else if(primaryCode >0 ){
                     tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
                 }
             }

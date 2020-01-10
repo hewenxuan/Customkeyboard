@@ -283,7 +283,7 @@
                         android:id="@+id/bt_zimuBttom3"
                         style="@style/bt_comment"
                         android:layout_weight="7"
-                        android:tag="32"
+                        android:tag="-11"
                         android:text="space"></Button>
 
                     <Button
