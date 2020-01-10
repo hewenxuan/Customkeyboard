@@ -306,7 +306,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private void set_scaleX() {
         if (layout_con != null) {
             this.scale_X = this.scale_X - 0.1f;
-            if (this.scale_X < 0.3f) {
+            if (this.scale_X < 0.4f) {
                 this.scale_X = 1.0f;
             }
             setKeyboardWidth(this.scale_X);
@@ -757,8 +757,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         if (num > 1) {//最大等于宽
             num = 1;
         }
-        if (num < 0.4) {//最小0.5倍    0.45也可以
-            num = 0.45f;
+        if (num < 0.5) {//最小0.5倍    0.45也可以
+            num = 0.5f;
         }
         int width = ScreenUtils.getScreenWidth(mActivity);
         int height = ScreenUtils.getScreenHeight(mActivity) - ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
