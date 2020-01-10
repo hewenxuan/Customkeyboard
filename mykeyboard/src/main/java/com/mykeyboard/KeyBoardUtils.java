@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -100,7 +101,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 
     //缩放比例
     private float scale_X = 1f;
-    private TextView tv_scale;
+    private ImageView tv_scale;
 
     private String FouceBg= "#00ff00";
 
@@ -326,7 +327,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
               if(b){
                   view.setBackgroundColor(Color.parseColor(FouceBg));
               }else{
-                  view.setBackgroundResource(R.drawable.selector_keyboard_key);
+                  view.setBackgroundResource(R.drawable.selector_keyboard_keys);
               }
         }
     };
@@ -377,7 +378,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 layout_zimuBttom.setVisibility(View.VISIBLE);
                 bt_layout_zimuBttoms[1].setText("英");
                 bt_coms[20].setVisibility(View.VISIBLE);
-                bt_coms[0].requestFocus();
+                if(this.devices_type == DEVICES_TYPE_TV){
+                    bt_coms[0].requestFocus();
+                }
                 break;
             case KeyCodeUtils.KEYBOARD_TYPE_ZIFU://字符
                 for (int i = 0; i < zifus.length; i++) {
@@ -386,12 +389,17 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 layout_zifuBttom.setVisibility(View.VISIBLE);
                 layout_zimuBttom.setVisibility(View.GONE);
                 bt_coms[20].setVisibility(View.VISIBLE);
-                bt_coms[0].requestFocus();
+
+                if(this.devices_type == DEVICES_TYPE_TV){
+                    bt_coms[0].requestFocus();
+                }
                 break;
             case KeyCodeUtils.KEYBOARD_TYPE_NUM://数字
                 layout_zifu_com.setVisibility(View.GONE);
                 layout_num.setVisibility(View.VISIBLE);
-                bt_layout_num[0].requestFocus();
+                if(this.devices_type == DEVICES_TYPE_TV){
+                    bt_layout_num[0].requestFocus();
+                }
                 break;
             case KeyCodeUtils.KEYBOARD_TYPE_ZH://中文
                 isXiaoxie = true;
@@ -402,7 +410,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 layout_zimuBttom.setVisibility(View.VISIBLE);
                 bt_layout_zimuBttoms[1].setText("中");
                 bt_coms[20].setVisibility(View.GONE);
-                bt_coms[0].requestFocus();
+                if(this.devices_type == DEVICES_TYPE_TV){
+                    bt_coms[0].requestFocus();
+                }
                 break;
             default:
                 break;
@@ -768,7 +778,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         //把得到的值保留1位小数四舍五入
         BigDecimal bg3 = new BigDecimal(num);
         double f3 = bg3.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        tv_scale.setText("X" + f3);
+//        tv_scale.setText("X" + f3);
         layout_con.invalidate();
     }
 
