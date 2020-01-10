@@ -544,6 +544,30 @@ public class KeyBoardUtils {
     /**
      * 显示软键盘
      */
+    public void show(final String color) {
+        if (rl_keyboard == null|| rl_keyboard.getVisibility()==View.VISIBLE) {
+            return;
+        }
+        text_con = "";
+        //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
+        final TranslateAnimation ctrlAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
+                TranslateAnimation.RELATIVE_TO_SELF, 1, TranslateAnimation.RELATIVE_TO_SELF, 0);
+        ctrlAnimation.setDuration(400l);     //设置动画的过渡时间
+        rl_keyboard.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rl_keyboard.setVisibility(View.VISIBLE);
+                setKeyboardBgColor(color);
+                set_type(keyboard_Type);//根据类型选择显示的键盘
+                rl_keyboard.startAnimation(ctrlAnimation);
+            }
+        }, 100);
+    }
+
+    /**
+     * 显示软键盘
+     */
     public void show() {
         if (rl_keyboard == null|| rl_keyboard.getVisibility()==View.VISIBLE) {
             return;

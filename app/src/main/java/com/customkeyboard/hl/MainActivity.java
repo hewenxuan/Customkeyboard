@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     //mykeyboard 用法
     private void initMykeyboard(){
-        KeyBoardUtils.getInstance().initView(this,1,"#80000000",KeyBoardUtils.DEVICES_TYPE_ANDROID);
+        KeyBoardUtils.getInstance().initView(this,1,"#65000000",KeyBoardUtils.DEVICES_TYPE_ANDROID);
         KeyBoardUtils.getInstance().setOnKeyPressListenerListener(new KeyBoardUtils.OnKeyPressListener() {
             @Override
             public void onkeyPress(int primaryCode, String text) {
