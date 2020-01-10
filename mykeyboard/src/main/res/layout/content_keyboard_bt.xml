@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ff0000"
+
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:visibility="visible">
@@ -460,7 +460,7 @@
 
                 <Button
                     android:id="@+id/bt_num12"
-                    style="@style/bt_comment"
+                    style="@style/bt_comment1"
                     android:text="abc"></Button>
 
             </LinearLayout>
@@ -482,7 +482,7 @@
 
                 <Button
                     android:id="@+id/bt_num14"
-                    style="@style/bt_comment"
+                    style="@style/bt_comment1"
                     android:layout_weight="1"
                     android:tag="10"
                     android:text="回车"></Button>
