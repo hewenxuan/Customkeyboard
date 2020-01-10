@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class KeyBoardUtils {
 
     //缩放比例
     private float scale_X = 1f;
-    private TextView tv_scale;
+    private ImageView tv_scale;
 
     private String FouceBg= "#00ff00";
 
@@ -276,7 +277,7 @@ public class KeyBoardUtils {
               if(b){
                   view.setBackgroundColor(Color.parseColor(FouceBg));
               }else{
-                  view.setBackgroundResource(R.drawable.selector_keyboard_key);
+                  view.setBackgroundResource(R.drawable.selector_keyboard_keys);
               }
         }
     };
@@ -494,7 +495,9 @@ public class KeyBoardUtils {
      */
     public void setKeyboardBgColor(String bgColor) {
         if (layout_con != null) {
-            layout_con.setBackgroundColor(Color.parseColor(bgColor));
+//            layout_con.setBackgroundColor(Color.parseColor(bgColor));
+            layout_con.setBackgroundColor(Color.parseColor("#37251F"));
+
         }
     }
 
@@ -639,7 +642,7 @@ public class KeyBoardUtils {
         //把得到的值保留1位小数四舍五入
         BigDecimal bg3 = new BigDecimal(num);
         double f3 = bg3.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        tv_scale.setText("X" + f3);
+//        tv_scale.setText("X" + f3);
         layout_con.invalidate();
     }
 
