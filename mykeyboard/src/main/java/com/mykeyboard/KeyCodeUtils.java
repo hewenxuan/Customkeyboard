@@ -27,11 +27,11 @@ public class KeyCodeUtils {
     public final static int KEY_COED_HIDE= -800;//软键盘 隐藏code
     public final static int KEY_COED_DAXIAO = -1;//字母大小写切换 按键
 
-    public final static int KEY_COED_ZH = 999;//中文 回调999代表当前是中文输入，取回调第二个参数为 中文
 
     public final static int KEY_COED_DEL = -5;//删除
-    public final static int KEY_COED_ENTER = -205;//回车换行  10
-    public final static int KEY_COED_SPACE = 32;// space 切换 按键
+    public final static int KEY_COED_ENTER = -10;//回车换行  code = 10   sdk需要，暂时定为-10
+    public final static int KEY_COED_SPACE = -11;// space 切换 按键  code = 32  sdk需要，暂时定为-11
+    public final static int KEY_COED_ZH = -12;//中文 回调-12代表当前是中文输入，取回调第二个参数为 中文
 
 
 

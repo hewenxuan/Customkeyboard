@@ -97,7 +97,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private Button[] bt_layout_num = new Button[14];
     private Integer[] bt_layout_num_ids = {R.id.bt_num1, R.id.bt_num2, R.id.bt_num3, R.id.bt_num4, R.id.bt_num5, R.id.bt_num6, R.id.bt_num7, R.id.bt_num8, R.id.bt_num9, R.id.bt_num10
             , R.id.bt_num11, R.id.bt_num12, R.id.bt_num13, R.id.bt_num14};
-    private String[] num_codes_tag = {"49", "50", "51", "-5", "52", "53", "54", "48", "55", "56", "57", "-202", "32", "10"};
+    private String[] num_codes_tag = {"49", "50", "51", "-5", "52", "53", "54", "48", "55", "56", "57", "-202", "-11", "-10"};
 
     //缩放比例
     private float scale_X = 1f;
@@ -460,7 +460,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 //              text_con = text_con + Character.toString((char) code);
                 text_con = Character.toString((char) code);
                 //判断为中文得时候才走中文输入法
-                if(keyboard_Type ==KeyCodeUtils.KEYBOARD_TYPE_ZH && code!=KeyCodeUtils.KEY_COED_ENTER && code!=KeyCodeUtils.KEY_COED_SPACE){ //只有是字母得时候转  回车code 10 ，space 32 不转
+                if(keyboard_Type ==KeyCodeUtils.KEYBOARD_TYPE_ZH ){ //只有是字母得时候转  回车code 10 ，space 32 不转
                     ckManager.processInput( Character.toString((char) code).toCharArray());
 //                  ckManager.processInput( new char[] { 'a' });
                 }
@@ -682,6 +682,29 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         set_type(keyboard_num);
     }
 
+    /**
+     * 显示软键盘
+     */
+    public void show(final String color) {
+        if (rl_keyboard == null|| rl_keyboard.getVisibility()==View.VISIBLE) {
+            return;
+        }
+        text_con = "";
+        //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
+        final TranslateAnimation ctrlAnimation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
+                TranslateAnimation.RELATIVE_TO_SELF, 1, TranslateAnimation.RELATIVE_TO_SELF, 0);
+        ctrlAnimation.setDuration(400l);     //设置动画的过渡时间
+        rl_keyboard.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rl_keyboard.setVisibility(View.VISIBLE);
+                set_type(keyboard_Type);//根据类型选择显示的键盘
+                setKeyboardBgColor(color);
+                rl_keyboard.startAnimation(ctrlAnimation);
+            }
+        }, 100);
+    }
     /**
      * 显示软键盘
      */

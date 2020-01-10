@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else if(primaryCode == KeyCodeUtils.KEY_COED_ENTER){//回车
                     tv_test.setText(tv_test.getText().toString()+"\n");
+//                    tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
+                }else if(primaryCode  == KeyCodeUtils.KEY_COED_SPACE ){
+                    tv_test.setText(tv_test.getText().toString()+Character.toString((char) 32));
                 }else if(primaryCode >0 ){
                     tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
                 }
