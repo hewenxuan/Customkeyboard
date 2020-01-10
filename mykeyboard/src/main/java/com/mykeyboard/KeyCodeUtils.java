@@ -30,7 +30,7 @@ public class KeyCodeUtils {
     public final static int KEY_COED_ZH = 999;//中文 回调999代表当前是中文输入，取回调第二个参数为 中文
 
     public final static int KEY_COED_DEL = -5;//删除
-    public final static int KEY_COED_ENTER = 10;//回车换行
+    public final static int KEY_COED_ENTER = -205;//回车换行  10
     public final static int KEY_COED_SPACE = 32;// space 切换 按键
 
 
