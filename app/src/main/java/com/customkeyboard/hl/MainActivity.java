@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     if(tv_test.getText().length()>0){
                         tv_test.setText(tv_test.getText().toString().substring(0, tv_test.getText().toString().length() - 1));
                     }
-                }else if(primaryCode == 10){//回车
+                }else if(primaryCode == -10){//回车
                     tv_test.setText(tv_test.getText().toString()+"\n");
                 }else if(primaryCode >0 ){
                     tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));

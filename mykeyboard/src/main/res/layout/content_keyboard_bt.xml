@@ -290,7 +290,7 @@
                         android:id="@+id/bt_zimuBttom4"
                         style="@style/bt_comment1"
                         android:layout_weight="3"
-                        android:tag="10"
+                        android:tag="-10"
                         android:text="回车"></Button>
 
                 </LinearLayout>
@@ -484,7 +484,7 @@
                     android:id="@+id/bt_num14"
                     style="@style/bt_comment1"
                     android:layout_weight="1"
-                    android:tag="10"
+                    android:tag="-10"
                     android:text="回车"></Button>
 
             </LinearLayout>
