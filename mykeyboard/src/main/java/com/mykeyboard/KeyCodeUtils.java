@@ -1,7 +1,7 @@
 package com.mykeyboard;
 
 /**
- * A部分按键code
+ * 部分按键code
  *
  * @version V1.0 <描述当前版本功能>
  * @FileName: com.mykeyboard.KeyCodeUtils.java

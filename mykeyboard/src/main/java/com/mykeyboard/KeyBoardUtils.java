@@ -477,6 +477,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                                 adapter.delData();
                                 recycler_view.setVisibility(View.GONE);
                                 setScaleVisible(View.VISIBLE);//显示缩放按钮
+                                ckManager.delAll();
                             }
                             return;
                         }
@@ -823,7 +824,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             candidate = wnnWord.candidate;
         }
         adapter.delData();
-        updatePinyin("");//拼音 置空并隐藏
+        if(adapter.getData().size()<=0){
+            updatePinyin("");//拼音 置空并隐藏
+        }
         ckManager.candidateSelected(wnnWord);
         setScaleVisible(View.VISIBLE);//显示缩放按钮
         if(mListener!=null){//回掉传选中得文字

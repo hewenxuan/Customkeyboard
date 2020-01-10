@@ -5,9 +5,9 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 /**
- * 在此写用途
+ * ScreenUtils
  *
- * @version V1.0 <描述当前版本功能>
+ * @version V1.0
  * @FileName: com.example.mycustomkeyboard.ScreenUtils.java
  * @author: myName
  * @date: 2020-01-02 11:43

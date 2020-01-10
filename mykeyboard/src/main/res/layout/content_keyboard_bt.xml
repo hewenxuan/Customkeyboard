@@ -23,8 +23,8 @@
             android:background="#60000000"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_height="wrap_content">
+            android:textSize="12sp"
+            android:layout_height="20dp">
         </TextView>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -38,40 +38,13 @@
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:visibility="visible">
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_scale"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="15dp"-->
-<!--                android:clickable="true"-->
-<!--                android:padding="3dp"-->
-<!--                android:text="x 0.1"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"></TextView>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_tip"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:padding="5dp"-->
-<!--                android:text="按下拖动"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="15sp"-->
-<!--                android:layout_marginRight="50dp"-->
-<!--                android:textStyle="bold"></TextView>-->
-
             <ImageView
                 android:id="@+id/tv_scale"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="15dp"
-                android:layout_margin="9dp"
-
                 android:clickable="true"
+                android:layout_marginRight="9dp"
                 android:background="@drawable/img_scale"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -82,13 +55,10 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:layout_margin="3dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/img_tuodong"
-
-
-                android:layout_marginRight="50dp"
+                android:layout_margin="6dp"
                 ></ImageView>
 
         </RelativeLayout>
@@ -97,6 +67,8 @@
             android:id="@+id/tv_line"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
             android:background="#000000"
             android:gravity="center_horizontal"></View>
 
@@ -105,7 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:layout_marginRight="8dp"
             android:layout_weight="0"
@@ -388,7 +359,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="8dp"
             android:layout_weight="0"
-            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="visible">
 
