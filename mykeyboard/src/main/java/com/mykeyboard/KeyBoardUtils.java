@@ -227,6 +227,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         ckManager.setOnPinyinQueryed(this);
         return true;
     }
+    public  String packageNmae= "";//包名;
+
+
     //设置缩放是否隐藏 竖屏隐藏  ，横屏有中文得时候隐藏
     private void setScaleVisible(int isVisible){
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
@@ -814,9 +817,10 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 adapter.addData(pyQueryResult.getCandidateList());
                 adapter.notifyDataSetChanged();
                 setScaleVisible(View.GONE);
-            }else{
-                setScaleVisible(View.VISIBLE);
             }
+//            else{
+//                setScaleVisible(View.VISIBLE);
+//            }
             String pinyin = pyQueryResult.getCurrentInput();
             updatePinyin(pinyin);
         }

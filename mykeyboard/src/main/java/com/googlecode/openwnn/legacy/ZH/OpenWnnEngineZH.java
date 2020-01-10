@@ -28,6 +28,7 @@ import com.googlecode.openwnn.legacy.WnnDictionary;
 import com.googlecode.openwnn.legacy.WnnEngine;
 import com.googlecode.openwnn.legacy.WnnSentence;
 import com.googlecode.openwnn.legacy.WnnWord;
+import com.mykeyboard.KeyBoardUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -163,7 +164,8 @@ public class OpenWnnEngineZH implements WnnEngine {
 
     ///data/data/com.example.softwaretest/
     public  String composeLocation(String fileName) {
-        String dataLocation = "/data/data/" + "com.customkeyboard.hl" + "/";
+        String dataLocation = "/data/data/" + KeyBoardUtils.getInstance().packageNmae + "/";
+//        String dataLocation = "/data/data/" + "com.customkeyboard.hl" + "/";
         return new StringBuilder().append(dataLocation).append(fileName).toString();
     }
 

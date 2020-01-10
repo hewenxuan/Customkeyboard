@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     //mykeyboard 用法
     private void initMykeyboard(){//#37251F
+        KeyBoardUtils.getInstance().packageNmae="com.customkeyboard.hl";
         KeyBoardUtils.getInstance().initView(this,1,"#37251F",KeyBoardUtils.DEVICES_TYPE_ANDROID);
         KeyBoardUtils.getInstance().setOnKeyPressListenerListener(new KeyBoardUtils.OnKeyPressListener() {
             @Override

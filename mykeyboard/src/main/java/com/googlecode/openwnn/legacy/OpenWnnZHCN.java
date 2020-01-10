@@ -43,6 +43,7 @@ import com.googlecode.openwnn.legacy.ZH.CN.OpenWnnEngineZHCN;
 import com.googlecode.openwnn.legacy.ZH.CN.TutorialZHCN;
 import com.googlecode.openwnn.legacy.ZH.DefaultSoftKeyboardZH;
 import com.googlecode.openwnn.legacy.ZH.LetterConverterZH;
+import com.mykeyboard.KeyBoardUtils;
 import com.mykeyboard.R;
 
 import java.util.regex.Matcher;
@@ -429,7 +430,8 @@ public class OpenWnnZHCN extends OpenWnn {
 	}
     ///data/data/com.example.softwaretest/
     public  String composeLocation(String fileName) {
-        String dataLocation = "/data/data/" + "com.customkeyboard.hl" + "/";
+        String dataLocation = "/data/data/" + KeyBoardUtils.getInstance().packageNmae + "/";
+//        String dataLocation = "/data/data/" + "com.customkeyboard.hl" + "/";
         return new StringBuilder().append(dataLocation).append(fileName).toString();
     }
 
