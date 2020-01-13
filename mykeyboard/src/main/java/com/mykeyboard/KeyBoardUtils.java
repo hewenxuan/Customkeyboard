@@ -467,9 +467,6 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             }
             switch (code) {
                 case KeyCodeUtils.KEY_COED_DEL://删除  如果是中文得看情况删除
-                    if (text_con.length() >= 1) {
-                        text_con = text_con.substring(0, text_con.length() - 1);
-                    }
                     if(keyboard_Type == KeyCodeUtils.KEYBOARD_TYPE_ZH ){//中文得时候
                         if (tv_zh.getText().toString().trim().length() > 0) {
                             ckManager.processDel();//输入法管理器删除1个字符
@@ -478,8 +475,21 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                                 recycler_view.setVisibility(View.GONE);
                                 setScaleVisible(View.VISIBLE);//显示缩放按钮
                                 ckManager.delAll();
+                            }else{//解决删除一个后不再自己重新搜索问题
+                                ckManager.delAll();
+                                ckManager.processInput(tv_zh.getText().toString());
                             }
                             return;
+                        }else{
+                            if(recycler_view.getVisibility() == View.VISIBLE){//解决 点击多次候选词 还有得时候，点击删除得时候，隐藏候选词 并且显示缩放按钮显示
+                                recycler_view.setVisibility(View.GONE);
+                                setScaleVisible(View.VISIBLE);//显示缩放按钮
+                                return;
+                            }
+                        }
+                    }else {
+                        if (text_con.length() >= 1) {
+                            text_con = text_con.substring(0, text_con.length() - 1);
                         }
                     }
                     break;
@@ -508,6 +518,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                         String text= tv_zh.getText().toString().trim();
                         if(adapter!=null && adapter.getData().size() == 0 && !text.equals("")){//候选词没有，但是拼音有
                             updatePinyin("");
+//                            adapter.delData();//解决多选后 没选完，一直点删除 候选词不消失问题
                             ckManager.delAll();
                             return;
                         }
@@ -838,17 +849,24 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     @Override
     public void onPinyinQueryed(PinyinQueryResult pyQueryResult) {
         if (pyQueryResult != null) {
+
             if(pyQueryResult.getCandidateList().size()>0){
                 recycler_view.setVisibility(View.VISIBLE);
                 adapter.addData(pyQueryResult.getCandidateList());
                 adapter.notifyDataSetChanged();
                 setScaleVisible(View.GONE);
             }
-//            else{
-//                setScaleVisible(View.VISIBLE);
-//            }
             String pinyin = pyQueryResult.getCurrentInput();
             updatePinyin(pinyin);
+            if(pinyin.length()>0&&pyQueryResult.getCandidateList().size()==0){
+                recycler_view.setVisibility(View.VISIBLE);
+                List<WnnWord> mList =new ArrayList<>();
+                mList.add(new WnnWord());
+                adapter.addData(mList);
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+                setScaleVisible(View.GONE);
+            }
         }
     }
 
