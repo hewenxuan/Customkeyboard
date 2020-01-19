@@ -385,6 +385,11 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
 
     private void set_type(int keyboard_Type) {
+        if(this.keyboard_Type == KeyCodeUtils.KEYBOARD_TYPE_ZH) {
+            if (adapter != null && adapter.getData().size() > 0 && !adapter.getData().get(0).candidate.trim().equals("")) { //如果候选词还有  按回车键时候 ，默认选择第一个
+                candidateSelected(adapter.getData().get(0));
+            }
+        }
         this.keyboard_Type = keyboard_Type;
         layout_zifu_com.setVisibility(View.VISIBLE);
         layout_num.setVisibility(View.GONE);
@@ -477,7 +482,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 //              text_con = text_con + Character.toString((char) code);
                 text_con = Character.toString((char) code);
                 //判断为中文得时候才走中文输入法
-                if(keyboard_Type ==KeyCodeUtils.KEYBOARD_TYPE_ZH ){ //只有是字母得时候转  回车code 10 ，space 32 不转
+                if(keyboard_Type ==KeyCodeUtils.KEYBOARD_TYPE_ZH ){ //只有是字母得时候转
+//                    tv_zh.setText(tv_zh.getText().toString()+Character.toString((char) code).toCharArray());
                     ckManager.processInput( Character.toString((char) code).toCharArray());
 //                  ckManager.processInput( new char[] { 'a' });
                 }
@@ -496,6 +502,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                                 ckManager.delAll();
                                 ckManager.processInput(tv_zh.getText().toString());
                             }
+//                            tv_zh.setText(tv_zh.getText().toString().substring(0, text_con.length() - 1));
                             return;
                         }else{
                             if(recycler_view.getVisibility() == View.VISIBLE){//解决 点击多次候选词 还有得时候，点击删除得时候，隐藏候选词 并且显示缩放按钮显示
@@ -528,7 +535,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                     return;
                 case KeyCodeUtils.KEY_COED_ENTER://回车
                     if(keyboard_Type == KeyCodeUtils.KEYBOARD_TYPE_ZH){
-                        if(adapter!=null && adapter.getData().size()>0){ //如果候选词还有  按回车键时候 ，默认选择第一个
+                        if(adapter!=null && adapter.getData().size()>0  && !adapter.getData().get(0).candidate.trim().equals("")){ //如果候选词还有  按回车键时候 ，默认选择第一个
                             candidateSelected(adapter.getData().get(0));
                             return;
                         }
@@ -552,7 +559,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                     return;
                 case KeyCodeUtils.KEY_COED_SPACE://space
                     if(keyboard_Type == KeyCodeUtils.KEYBOARD_TYPE_ZH){
-                        if(adapter!=null && adapter.getData().size()>0){ //如果候选词还有  按完成键额时候 ，默认选择第一个
+                        if(adapter!=null && adapter.getData().size()>0  && !adapter.getData().get(0).candidate.trim().equals("")){ //如果候选词还有  按完成键额时候 ，默认选择第一个
                             candidateSelected(adapter.getData().get(0));
                             return;
                         }
@@ -860,6 +867,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             updatePinyin("");//拼音 置空并隐藏
         }
         ckManager.candidateSelected(wnnWord);
+        ckManager.delAll();
         setScaleVisible(View.VISIBLE);//显示缩放按钮
         if(mListener!=null){//回掉传选中得文字
             mListener.onkeyPress(KeyCodeUtils.KEY_COED_ZH, candidate);
