@@ -303,11 +303,28 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
      *
      * @param
      */
+//    private void set_scaleX() {
+//        if (layout_con != null) {
+//            this.scale_X = this.scale_X - 0.1f;
+//            if (this.scale_X < 0.4f) {
+//                this.scale_X = 1.0f;
+//            }
+//            setKeyboardWidth(this.scale_X);
+//        }
+//    }
+    private boolean isSaleAdd=false;
     private void set_scaleX() {
         if (layout_con != null) {
-            this.scale_X = this.scale_X - 0.1f;
-            if (this.scale_X < 0.4f) {
-                this.scale_X = 1.0f;
+            if(isSaleAdd){//正在放大
+                this.scale_X = this.scale_X + 0.1f;
+                if (this.scale_X >= 1f) {
+                    this.scale_X =1f;
+                }
+            }else{//正在缩小
+                this.scale_X = this.scale_X - 0.1f;
+                if (this.scale_X <= 0.5f) {
+                    this.scale_X =0.5f;
+                }
             }
             setKeyboardWidth(this.scale_X);
         }
@@ -789,18 +806,22 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
             return;
         }
-        if (num > 1) {//最大等于宽
+        if (num >= 1) {//最大等于宽
             num = 1;
+            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
+            isSaleAdd =false;
         }
-        if (num < 0.5) {//最小0.5倍    0.45也可以
+        if (num <= 0.5) {//最小0.5倍    0.45也可以
             num = 0.5f;
+            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+            isSaleAdd =true;
         }
         int width = ScreenUtils.getScreenWidth(mActivity);
         int height = ScreenUtils.getScreenHeight(mActivity) - ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
         RelativeLayout.LayoutParams Params = (RelativeLayout.LayoutParams) layout_con.getLayoutParams();
         Params.width = (int) (width * num);
         System.out.println("屏幕宽= "+width+" Params.width= "+ Params.width +"  缩放倍数= "+num);
-        Params.height= height /2 ;
+        Params.height= height /2;
 //        Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
