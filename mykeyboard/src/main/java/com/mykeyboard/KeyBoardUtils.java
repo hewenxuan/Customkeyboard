@@ -255,6 +255,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if(!isShow){
+            return true;
+        }
         //判断当前 tip是否有焦点  没有返回false
         if(isTipClickFocus&& event.getAction() == KeyEvent.ACTION_DOWN){
 //          System.out.println("您按下了dispatchKeyEvent："+event.getKeyCode());
