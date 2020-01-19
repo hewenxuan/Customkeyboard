@@ -250,11 +250,27 @@ public class KeyBoardUtils {
      *
      * @param
      */
+//    private void set_scaleX() {
+//        if (layout_con != null) {
+//            this.scale_X = this.scale_X - 0.1f;
+//            if (this.scale_X < 0.4f) {
+//                this.scale_X = 1.0f;
+//            }
+//            setKeyboardWidth(this.scale_X);
+//        }
+//    }
     private void set_scaleX() {
         if (layout_con != null) {
-            this.scale_X = this.scale_X - 0.1f;
-            if (this.scale_X < 0.4f) {
-                this.scale_X = 1.0f;
+            if(isSaleAdd){//正在放大
+                this.scale_X = this.scale_X + 0.1f;
+                if (this.scale_X >= 1f) {
+                    this.scale_X =1f;
+                }
+            }else{//正在缩小
+                this.scale_X = this.scale_X - 0.1f;
+                if (this.scale_X <= 0.5f) {
+                    this.scale_X =0.5f;
+                }
             }
             setKeyboardWidth(this.scale_X);
         }
@@ -621,7 +637,7 @@ public class KeyBoardUtils {
     public void setOnKeyPressListenerListener(OnKeyPressListener listener) {
         this.mListener = listener;
     }
-
+    private boolean isSaleAdd=false;
     /**
      * 横屏设置键盘宽度
      *
@@ -637,11 +653,15 @@ public class KeyBoardUtils {
         if (ori == mConfiguration.ORIENTATION_PORTRAIT) {//竖屏
             return;
         }
-        if (num > 1) {//最大等于宽
+        if (num >= 1) {//最大等于宽
             num = 1;
+            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
+            isSaleAdd =false;
         }
-        if (num < 0.5) {//最小0.5倍    0.45也可以
+        if (num <= 0.5) {//最小0.5倍    0.45也可以
             num = 0.5f;
+            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+            isSaleAdd =true;
         }
         int width = ScreenUtils.getScreenWidth(mActivity);
         int height = ScreenUtils.getScreenHeight(mActivity) - ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏

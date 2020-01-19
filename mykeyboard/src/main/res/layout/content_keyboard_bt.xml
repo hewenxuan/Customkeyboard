@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-
+        android:background="#ff0000"
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:visibility="visible">
@@ -51,10 +51,10 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="15dp"
-                android:layout_margin="9dp"
-
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:clickable="true"
-                android:background="@drawable/img_scale"
+                android:background="@drawable/img_scale_del"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 ></ImageView>
@@ -64,7 +64,8 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:layout_margin="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/img_tuodong"
@@ -87,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:layout_marginRight="8dp"
             android:layout_weight="0"
@@ -98,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
@@ -203,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -260,14 +260,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="3dp"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
                     <Button
                         android:id="@+id/bt_zimuBttom1"
-                        style="@style/bt_comment1"
+                        style="@style/bt_comment"
                         android:layout_weight="2"
                         android:tag="-201"
                         android:text="123"></Button>
@@ -288,7 +288,7 @@
 
                     <Button
                         android:id="@+id/bt_zimuBttom4"
-                        style="@style/bt_comment1"
+                        style="@style/bt_comment"
                         android:layout_weight="3"
                         android:tag="-10"
                         android:text="回车"></Button>
@@ -300,14 +300,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="3dp"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
                     <Button
                         android:id="@+id/bt_zifuBttom1"
-                        style="@style/bt_comment1"
+                        style="@style/bt_comment"
                         android:tag="-201"
                         android:text="123"></Button>
 
@@ -355,7 +355,7 @@
 
                     <Button
                         android:id="@+id/bt_zifuBttom9"
-                        style="@style/bt_comment1"
+                        style="@style/bt_comment"
                         android:tag="-202"
                         android:text="abc"></Button>
 
@@ -369,8 +369,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0"
-            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -407,7 +407,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -439,7 +439,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
 
@@ -460,7 +460,7 @@
 
                 <Button
                     android:id="@+id/bt_num12"
-                    style="@style/bt_comment1"
+                    style="@style/bt_comment"
                     android:text="abc"></Button>
 
             </LinearLayout>
@@ -469,7 +469,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:layout_marginRight="3dp"
                 android:orientation="horizontal">
@@ -482,15 +482,13 @@
 
                 <Button
                     android:id="@+id/bt_num14"
-                    style="@style/bt_comment1"
+                    style="@style/bt_comment"
                     android:layout_weight="1"
                     android:tag="-10"
                     android:text="回车"></Button>
 
             </LinearLayout>
         </LinearLayout>
-
-
        </LinearLayout>
 
 
