@@ -1541,7 +1541,6 @@ public class OpenWnnZHCN extends OpenWnn {
 			return mStatus;
 		}
 		String tmp = mComposingText.toString(layer, 0, cursor - 1);
-
 		if (mConverter != null) {
 			if (learn) {
 				if (mEngineState.isRenbun()) {
@@ -2600,4 +2599,8 @@ public class OpenWnnZHCN extends OpenWnn {
 		mComposingText.delete(ComposingText.LAYER1, false);
 	}
 
+    public void deleteAll() {
+        mComposingText.clear();
+
+    }
 }

@@ -114,21 +114,22 @@ public class ConsonantPrediction {
     	/* clear previous result */
         clearBuffers();
         mExactMatchMode = exact;
-
         /* no result for null or empty string */
         if (input == null || input.length() == 0) {
             return null;
         }
-        
+
         /* split for each pinyin */
         List<String> pinyinList = mInputPinyinList = PinyinParser.getPinyinList(input);
         if (pinyinList.size() < 2) {
         	return null;
         }
-        
+
         /* set the dictionary for consonant prediction */
         WnnDictionary dict = mDictionary;
-
+        if(dict == null){
+            return null;
+        }
         dict.clearDictionary();
         dict.clearApproxPattern();
         dict.setDictionary(0, 300, 400);
@@ -152,7 +153,7 @@ public class ConsonantPrediction {
         	clearCache();
         	mSearchKey = searchKey;
         }
-        
+
         /* get the first candidate */
         if (mCacheNum < 0) {
         	/* If all the matched words from the dictionary is fetched already, use the cache. */
@@ -162,7 +163,7 @@ public class ConsonantPrediction {
             mFetchNumFromDict = 0;
         	return nextCandidate();
         }
-        
+
         /* no more candidate found */
         mCacheNum = -1;
         return null;

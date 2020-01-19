@@ -56,9 +56,10 @@ public class CloudKeyboardInputManager implements CandidateCallback {
 
     public void delAll() {
         int loop = currentPinYin.length();
-        for(int i = 0; i < loop; ++i) {
-            mOpenWnnZHCN.deleteBy1();
-        }
+//        for(int i = 0; i < loop; ++i) {
+//            mOpenWnnZHCN.deleteBy1();
+//        }
+        mOpenWnnZHCN.deleteAll();
         if(loop > 0) {
             currentPinYin.delete(0, loop);
         }

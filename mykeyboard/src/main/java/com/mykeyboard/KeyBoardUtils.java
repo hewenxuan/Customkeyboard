@@ -484,6 +484,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 //判断为中文得时候才走中文输入法
                 if(keyboard_Type ==KeyCodeUtils.KEYBOARD_TYPE_ZH ){ //只有是字母得时候转
 //                    tv_zh.setText(tv_zh.getText().toString()+Character.toString((char) code).toCharArray());
+                    if(tv_zh.getText().toString().equals("")){//如果输入之前没有 默认清空一次，之前可能残留
+                        ckManager.delAll();
+                    }
                     ckManager.processInput( Character.toString((char) code).toCharArray());
 //                  ckManager.processInput( new char[] { 'a' });
                 }
@@ -867,7 +870,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             updatePinyin("");//拼音 置空并隐藏
         }
         ckManager.candidateSelected(wnnWord);
-        ckManager.delAll();
+//        ckManager.delAll();
         setScaleVisible(View.VISIBLE);//显示缩放按钮
         if(mListener!=null){//回掉传选中得文字
             mListener.onkeyPress(KeyCodeUtils.KEY_COED_ZH, candidate);
