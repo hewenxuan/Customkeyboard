@@ -520,7 +520,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                             if(recycler_view.getVisibility() == View.VISIBLE){//解决 点击多次候选词 还有得时候，点击删除得时候，隐藏候选词 并且显示缩放按钮显示
                                 recycler_view.setVisibility(View.GONE);
                                 setScaleVisible(View.VISIBLE);//显示缩放按钮
-                                return;
+                                if (text_con.length() >= 1) {
+                                    text_con = text_con.substring(0, text_con.length() - 1);
+                                }
                             }
                         }
                     }else {
