@@ -450,8 +450,8 @@ public class OpenWnnZHCN extends OpenWnn {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
-		String delimiter = Pattern.quote(getResources().getString(R.string.en_word_separators));
+        String delimiter = Pattern.quote(".,;:!?");
+//		String delimiter = Pattern.quote(getResources().getString(R.string.en_word_separators));
 		mEnglishAutoCommitDelimiter = Pattern.compile(".*[" + delimiter + "]$");
 		if (mConverterSymbolEngineBack == null) {
 			mConverterSymbolEngineBack = new SymbolList(this, SymbolList.LANG_ZHCN);

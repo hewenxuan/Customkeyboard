@@ -21,25 +21,6 @@
             </intent-filter>
         </activity>
 
-
-        <service
-            android:id="@+id/openwnn_chinese"
-            android:name="com.googlecode.openwnn.legacy.OpenWnnZHCN"
-            android:label="中"
-            android:permission="android.permission.BIND_INPUT_METHOD" >
-            <intent-filter>
-                <action android:name="android.view.InputMethod" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.view.im"
-                android:resource="@xml/method_zhcn" />
-        </service>
-
-        <activity android:name="com.googlecode.openwnn.legacy.ZH.CN.UserDictionaryToolsListZHCN" />
-        <activity
-            android:name="com.googlecode.openwnn.legacy.ZH.CN.UserDictionaryToolsEditZHCN"
-            android:label="中文字典" />
     </application>
 
 

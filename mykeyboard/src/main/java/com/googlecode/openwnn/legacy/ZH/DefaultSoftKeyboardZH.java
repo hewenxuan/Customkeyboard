@@ -401,46 +401,13 @@ public class DefaultSoftKeyboardZH extends DefaultSoftKeyboard {
 		 ***********************************************************************/
 		/* qwerty shift_off */
 		keyList = mKeyboard[LANG_CN][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF];
-		keyList[KEYMODE_CN_ALPHABET][0] = new Keyboard(parent, R.xml.default_cn_qwerty);
-		keyList[KEYMODE_CN_HALF_NUMBER][0] = new Keyboard(parent, R.xml.default_cn_half_symbols);
-		keyList[KEYMODE_CN_PHONE][0] = new Keyboard(parent, R.xml.keyboard_12key_phone);
-		keyList[KEYMODE_CN_PINYIN][0] = new Keyboard(parent, R.xml.default_cn_qwerty_pinyin);
-		keyList[KEYMODE_CN_FULL_NUMBER][0] = new Keyboard(parent, R.xml.default_cn_full_symbols);
 
-		/* qwerty shift_on */
-		keyList = mKeyboard[LANG_CN][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_ON];
-		keyList[KEYMODE_CN_ALPHABET][0] = mKeyboard[LANG_CN][PORTRAIT][KEYBOARD_QWERTY][KEYBOARD_SHIFT_OFF][KEYMODE_CN_ALPHABET][0];
-		keyList[KEYMODE_CN_HALF_NUMBER][0] = new Keyboard(parent, R.xml.default_cn_half_symbols_shift);
-		keyList[KEYMODE_CN_PHONE][0] = new Keyboard(parent, R.xml.keyboard_12key_phone);
-		keyList[KEYMODE_CN_PINYIN][0] = new Keyboard(parent, R.xml.default_cn_qwerty_pinyin_shift);
-		keyList[KEYMODE_CN_FULL_NUMBER][0] = new Keyboard(parent, R.xml.default_cn_full_symbols_shift);
 	}
 
 	/**
 	 * Set the status icon that is appropriate in current mode
 	 */
 	protected void setStatusIcon() {
-		int icon = 0;
-
-		switch (mCurrentKeyMode) {
-		case KEYMODE_CN_PINYIN:
-			icon = R.drawable.immodeic_chinese;
-			break;
-		case KEYMODE_CN_FULL_NUMBER:
-			icon = R.drawable.immodeic_full_number;
-			break;
-		case KEYMODE_CN_ALPHABET:
-			icon = R.drawable.immodeic_half_alphabet;
-			break;
-		case KEYMODE_CN_HALF_NUMBER:
-		case KEYMODE_CN_PHONE:
-			icon = R.drawable.immodeic_half_number;
-			break;
-		default:
-			break;
-		}
-
-		mWnn.showStatusIcon(icon);
 	}
 
 	/**

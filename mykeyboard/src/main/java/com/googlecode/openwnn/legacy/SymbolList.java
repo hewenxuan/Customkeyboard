@@ -98,24 +98,19 @@ public class SymbolList implements WnnEngine {
 		switch (lang) {
 		case LANG_EN:
 			/* symbols for English IME */
-			mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin12_list));
-			mSymbols.put(SYMBOL_EMOTION, getXmlfile(R.xml.symbols_emotion_list));
+
 			mCurrentList = mSymbols.get(SYMBOL_ENGLISH);
 			break;
 
 		case LANG_JA:
 			/* symbols for Japanese IME */
-			mSymbols.put(SYMBOL_JAPANESE, getXmlfile(R.xml.symbols_japan_list));
-			mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
-			mSymbols.put(SYMBOL_EMOTION, getXmlfile(R.xml.symbols_emotion_list));
+
 			mCurrentList = mSymbols.get(SYMBOL_JAPANESE);
 			break;
 
 		case LANG_ZHCN:
 			/* symbols for Chinese IME */
-			mSymbols.put(SYMBOL_CHINESE, getXmlfile(R.xml.symbols_china_list));
-			mSymbols.put(SYMBOL_ENGLISH, getXmlfile(R.xml.symbols_latin1_list));
-			mSymbols.put(SYMBOL_EMOTION, getXmlfile(R.xml.symbols_emotion_list));
+
 			mCurrentList = mSymbols.get(SYMBOL_CHINESE);
 			break;
 		}

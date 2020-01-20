@@ -92,7 +92,7 @@ public class TutorialZHCN implements OnTouchListener {
 		boolean dismissOnTouch;
 		boolean dismissOnClose;
 		PopupWindow window;
-		TextView textView;
+//		TextView textView;
 		View inputView;
 
 		Bubble(Context context, View inputView, int backgroundResource, int bx, int by, int description, int guide) {
@@ -117,14 +117,7 @@ public class TutorialZHCN implements OnTouchListener {
 			this.inputView = inputView;
 			window = new PopupWindow(context);
 			window.setBackgroundDrawable(null);
-			LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			textView = (TextView) inflate.inflate(R.layout.bubble_text, null);
-			textView.setBackgroundDrawable(bubbleBackground);
-			textView.setText(text);
-			if (leftAlign) {
-				textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-			}
-			window.setContentView(textView);
+
 			window.setFocusable(false);
 			window.setTouchable(true);
 			window.setOutsideTouchable(false);
@@ -156,40 +149,13 @@ public class TutorialZHCN implements OnTouchListener {
 		}
 
 		void show(int offx, int offy) {
-			int textHeight = chooseSize(window, inputView, text, textView);
-			offy -= textView.getPaddingTop() + textHeight;
-			if (inputView.getVisibility() == View.VISIBLE && inputView.getWindowVisibility() == View.VISIBLE) {
-				try {
-					if ((gravity & Gravity.BOTTOM) == Gravity.BOTTOM)
-						offy -= window.getHeight();
-					if ((gravity & Gravity.RIGHT) == Gravity.RIGHT)
-						offx -= window.getWidth();
-					textView.setOnTouchListener(new View.OnTouchListener() {
-						public boolean onTouch(View view, MotionEvent me) {
-							boolean ret = !mEnableKeyTouch;
-							switch (me.getAction()) {
-							case MotionEvent.ACTION_UP:
-								if (mBubbleIndex >= mBubbles.size()) {
-									mInputView.setOnTouchListener(null);
-								} else {
-									TutorialZHCN.this.next();
-								}
-								break;
-							default:
-								break;
-							}
-							return ret;
-						}
-					});
-					window.showAtLocation(inputView, Gravity.NO_GRAVITY, x + offx, y + offy);
-				} catch (Exception e) {
-				}
-			}
+
+
 		}
 
 		void hide() {
 			if (window.isShowing()) {
-				textView.setOnTouchListener(null);
+
 				window.dismiss();
 			}
 		}
@@ -208,26 +174,7 @@ public class TutorialZHCN implements OnTouchListener {
 		int inputWidth = inputView.getWidth();
 		Resources r = inputView.getContext().getResources();
 		final int x = inputWidth / 20;
-		r.getDimensionPixelOffset(R.dimen.bubble_pointer_offset);
-
-		SpannableStringBuilder spannable = new SpannableStringBuilder();
-		Bubble button;
-
-		spannable.clear();
-		spannable.append(r.getText(R.string.tip_en_to_open_keyboard));
-		button = new Bubble(context, inputView, R.drawable.dialog_bubble, x, 0, spannable, R.string.touch_to_continue, false);
-		mBubbles.add(button);
-
-		spannable.clear();
-		spannable.append(r.getText(R.string.tip_en_to_close_keyboard));
-
-		setSpan(spannable, "\u2190", R.drawable.tutorial_back);
-
-		button = new Bubble(context, inputView, R.drawable.dialog_bubble, x, 0, spannable, R.string.touch_to_continue, false);
-		mBubbles.add(button);
-
-		button = new Bubble(context, inputView, R.drawable.dialog_bubble, x, 0, R.string.tip_en_end_of_tutorial, R.string.touch_to_finish);
-		mBubbles.add(button);
+		r.getDimensionPixelOffset(22);
 	}
 
 	private void setSpan(SpannableStringBuilder spannable, String marker, int imageResourceId) {
