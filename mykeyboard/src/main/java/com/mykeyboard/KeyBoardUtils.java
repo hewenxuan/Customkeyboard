@@ -154,12 +154,18 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(b){
-                    view.setBackgroundColor(Color.parseColor(FouceBg));
+//                    view.setBackgroundColor(Color.parseColor(FouceBg));
+                    view.setScaleX(1.2f);
+                    view.setScaleY(1.2f);
                 }else{
-                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
+//                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                    view.setScaleX(1.0f);
+                    view.setScaleY(1.0f);
                 }
             }
         });
+        tv_scale.setNextFocusRightId(R.id.tv_tip);
+
         setScaleVisible(View.VISIBLE);//设置缩放是否隐藏
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
         int ori = mConfiguration.orientation; //获取屏幕方向
