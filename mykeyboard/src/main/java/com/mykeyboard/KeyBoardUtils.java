@@ -127,10 +127,11 @@ public class KeyBoardUtils {
         tv_scale.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View view, boolean b) {
+                View parent= (View) view.getParent();
                 if(b){
-                    view.setBackgroundColor(Color.parseColor(FouceBg));
+                    parent.setBackgroundColor(Color.parseColor(FouceBg));
                 }else{
-                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                    parent.setBackgroundColor(Color.parseColor("#00ffffff"));
                 }
             }
         });
@@ -153,10 +154,11 @@ public class KeyBoardUtils {
                 rl_keyboard.findViewById(R.id.tv_tip).setOnFocusChangeListener(new View.OnFocusChangeListener(){
                     @Override
                     public void onFocusChange(View view, boolean b) {
+                        View parent= (View) view.getParent();
                         if(b){
-                            view.setBackgroundColor(Color.parseColor(FouceBg));
+                            parent.setBackgroundColor(Color.parseColor(FouceBg));
                         }else{
-                            view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                            parent.setBackgroundColor(Color.parseColor("#00ffffff"));
                         }
                     }
                 });

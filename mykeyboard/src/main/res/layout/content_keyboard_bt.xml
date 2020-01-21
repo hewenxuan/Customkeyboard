@@ -21,58 +21,36 @@
             android:background="#00000000"
             android:visibility="visible">
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_scale"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="15dp"-->
-<!--                android:clickable="true"-->
-<!--                android:padding="3dp"-->
-<!--                android:text="x 0.1"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"></TextView>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_tip"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:padding="5dp"-->
-<!--                android:text="按下拖动"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="15sp"-->
-<!--                android:layout_marginRight="50dp"-->
-<!--                android:textStyle="bold"></TextView>-->
-
-            <ImageView
-                android:id="@+id/tv_scale"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:clickable="true"
-                android:background="@drawable/img_scale_del"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                ></ImageView>
-
             <ImageView
                 android:id="@+id/tv_tip"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/img_tuodong"
-
-
-                android:layout_marginRight="50dp"
+                android:layout_margin="6dp"
                 ></ImageView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#0000ff00"
+                android:padding="6dp"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/tv_scale"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:clickable="true"
+                    android:background="@drawable/img_scale_del"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    ></ImageView>
+            </RelativeLayout>
 
         </RelativeLayout>
 
