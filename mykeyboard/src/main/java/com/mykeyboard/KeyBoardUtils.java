@@ -40,6 +40,7 @@ import java.util.List;
 /**
  * 软键盘工具类带edittext
  *
+ *
  * @version V1.0 <软键盘工具类>
  * @FileName: com.example.mycustomkeyboard.KeyBoardUtils.java
  * @author: helong
@@ -112,6 +113,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private TextView tv_zh;
 
     private boolean isTipClickFocus = false;//0 没有选择中  1 选择中 拖动用
+
+    private String bgColor= "#00ffffff";//键盘背景
     private boolean init(final Activity mContext, int keyboard_Type,String devices_type) {
         if (keyboard_Type > 4) {//键盘模式只能到4
             return false;
@@ -199,7 +202,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                         if(isTipClickFocus ){
                             layout_con.setBackgroundColor(Color.parseColor("#80000000"));
                         }else{
-                            layout_con.setBackgroundColor(Color.parseColor("#00ffffff"));
+                            layout_con.setBackgroundColor(Color.parseColor(bgColor));
                         }
                         setViewFocus(!isTipClickFocus);
                     }
@@ -725,6 +728,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
      */
     public void setKeyboardBgColor(String bgColor) {
         if (layout_con != null) {
+            this.bgColor=bgColor;
             layout_con.setBackgroundColor(Color.parseColor(bgColor));
         }
     }
