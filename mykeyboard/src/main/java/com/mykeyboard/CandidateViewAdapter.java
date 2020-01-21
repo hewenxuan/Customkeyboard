@@ -1,5 +1,6 @@
 package com.mykeyboard;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import java.util.Set;
 class CandidateViewAdapter extends RecyclerView.Adapter<CandidateViewAdapter.ViewHolder> {
     private List<WnnWord> mList;
     private OnCandidateSelected mOnCandidateSelected;
+    private String FouceBg= "#00ff00";
 
     public CandidateViewAdapter(OnCandidateSelected candidateSelected) {
         mList =new ArrayList<>();
@@ -59,12 +61,24 @@ class CandidateViewAdapter extends RecyclerView.Adapter<CandidateViewAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final  int position) {
         final WnnWord bean = mList.get(position);
+        holder.item_name.setFocusable(true);
         holder.item_name.setText( bean.candidate);
         holder.item_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mOnCandidateSelected!=null){
                     mOnCandidateSelected.candidateSelected(mList.get(position));
+                }
+            }
+        });
+
+        holder.item_name.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    view.setBackgroundColor(Color.parseColor(FouceBg));
+                }else{
+                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
                 }
             }
         });

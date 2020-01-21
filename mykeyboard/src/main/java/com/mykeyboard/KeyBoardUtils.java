@@ -153,18 +153,15 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         tv_scale.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View view, boolean b) {
+                View parent= (View) view.getParent();
                 if(b){
-//                    view.setBackgroundColor(Color.parseColor(FouceBg));
-                    view.setScaleX(1.2f);
-                    view.setScaleY(1.2f);
+                    parent.setBackgroundColor(Color.parseColor(FouceBg));
                 }else{
-//                    view.setBackgroundColor(Color.parseColor("#00ffffff"));
-                    view.setScaleX(1.0f);
-                    view.setScaleY(1.0f);
+                    parent.setBackgroundColor(Color.parseColor("#00ffffff"));
                 }
             }
         });
-        tv_scale.setNextFocusRightId(R.id.tv_tip);
+//        tv_scale.setNextFocusRightId(R.id.tv_tip);
 
         setScaleVisible(View.VISIBLE);//设置缩放是否隐藏
         Configuration mConfiguration = mActivity.getResources().getConfiguration(); //获取设置的配置信息
@@ -187,10 +184,11 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 rl_keyboard.findViewById(R.id.tv_tip).setOnFocusChangeListener(new View.OnFocusChangeListener(){
                     @Override
                     public void onFocusChange(View view, boolean b) {
+                        View parent= (View) view.getParent();
                         if(b){
-                            view.setBackgroundColor(Color.parseColor(FouceBg));
+                            parent.setBackgroundColor(Color.parseColor(FouceBg));
                         }else{
-                            view.setBackgroundColor(Color.parseColor("#00ffffff"));
+                            parent.setBackgroundColor(Color.parseColor("#00ffffff"));
                         }
                     }
                 });
@@ -261,9 +259,6 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if(!isShow){
-            return true;
-        }
         //判断当前 tip是否有焦点  没有返回false
         if(isTipClickFocus&& event.getAction() == KeyEvent.ACTION_DOWN){
 //          System.out.println("您按下了dispatchKeyEvent："+event.getKeyCode());
@@ -885,6 +880,9 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         setScaleVisible(View.VISIBLE);//显示缩放按钮
         if(mListener!=null){//回掉传选中得文字
             mListener.onkeyPress(KeyCodeUtils.KEY_COED_ZH, candidate);
+        }
+        if(this.devices_type == DEVICES_TYPE_TV){//如果是tv 默认选择完成之后焦点给第一个q，走到这一定就是中文模式，所以不用判断
+            bt_coms[0].requestFocus();
         }
 //        Toast.makeText(mActivity,candidate,Toast.LENGTH_SHORT).show();
     }
