@@ -361,6 +361,49 @@ public class KeyBoardUtils {
             default:
                 break;
         }
+
+        setNextFouce();
+    }
+    //如果是tv 需要优化焦点问题  ，左右两边焦点到头处理
+    private void setNextFouce() {
+        if(this.devices_type == DEVICES_TYPE_ANDROID){
+            return;
+        }
+
+        bt_coms[0].setNextFocusLeftId(R.id.bt10);//q 左边是 p
+        bt_coms[9].setNextFocusRightId(R.id.bt1);//p 右边是 q
+
+        bt_coms[10].setNextFocusLeftId(R.id.bt20);//a 左边是 符
+        bt_coms[19].setNextFocusRightId(R.id.bt11);//符 右边是 a
+
+        bt_coms[20].setNextFocusLeftId(R.id.bt29);//大写 左边是 删除
+        bt_coms[28].setNextFocusRightId(R.id.bt21);//删除 右边是 大写
+
+        if(this.keyboard_Type == 4){
+            bt_coms[21].setNextFocusLeftId(R.id.bt29);//z 左边是 删除
+            bt_coms[28].setNextFocusRightId(R.id.bt22);//删除 右边是 z
+        }
+
+        bt_layout_zifuBttoms[0].setNextFocusLeftId(R.id.bt_zifuBttom9);//123 左边是 abc
+        bt_layout_zifuBttoms[8].setNextFocusRightId(R.id.bt_zifuBttom1);//abc 右边是 123
+
+        bt_layout_zimuBttoms[0].setNextFocusLeftId(R.id.bt_zimuBttom4);//123 左边是 回车
+        bt_layout_zimuBttoms[3].setNextFocusRightId(R.id.bt_zimuBttom1);//回车 右边是 123
+
+
+        bt_layout_num[0].setNextFocusLeftId(R.id.bt_num4);//1 左边是 删除
+        bt_layout_num[3].setNextFocusRightId(R.id.bt_num1);//删除 右边是 1
+
+        bt_layout_num[4].setNextFocusLeftId(R.id.bt_num8);//4 左边是 0
+        bt_layout_num[7].setNextFocusRightId(R.id.bt_num5);//0 右边是 4
+
+        bt_layout_num[8].setNextFocusLeftId(R.id.bt_num12);//7 左边是 abc
+        bt_layout_num[11].setNextFocusRightId(R.id.bt_num9);//abc 右边是 7
+
+        bt_layout_num[12].setNextFocusLeftId(R.id.bt_num14);//space 左边是 回车
+        bt_layout_num[13].setNextFocusRightId(R.id.bt_num13);//回车 右边是 space
+
+
     }
 
     public static KeyBoardUtils getInstance() {
