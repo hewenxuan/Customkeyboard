@@ -379,10 +379,10 @@ public class KeyBoardUtils {
         bt_coms[20].setNextFocusLeftId(R.id.bt29);//大写 左边是 删除
         bt_coms[28].setNextFocusRightId(R.id.bt21);//删除 右边是 大写
 
-        if(this.keyboard_Type == 4){
-            bt_coms[21].setNextFocusLeftId(R.id.bt29);//z 左边是 删除
-            bt_coms[28].setNextFocusRightId(R.id.bt22);//删除 右边是 z
-        }
+//        if(this.keyboard_Type == 4){//这个分支暂时不支持中文
+//            bt_coms[21].setNextFocusLeftId(R.id.bt29);//z 左边是 删除
+//            bt_coms[28].setNextFocusRightId(R.id.bt22);//删除 右边是 z
+//        }
 
         bt_layout_zifuBttoms[0].setNextFocusLeftId(R.id.bt_zifuBttom9);//123 左边是 abc
         bt_layout_zifuBttoms[8].setNextFocusRightId(R.id.bt_zifuBttom1);//abc 右边是 123
