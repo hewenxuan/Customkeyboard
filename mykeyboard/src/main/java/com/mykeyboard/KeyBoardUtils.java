@@ -94,8 +94,8 @@ public class KeyBoardUtils {
     private float scale_X = 1f;
     private ImageView tv_scale;
 
-    private String FouceBg= "#00ff00";
-
+    private String FouceBg= "#00ff00";//按键获取焦点背景色
+    private String bgColor ="#00fffffff";//键盘背景色
     private List<View> views ;
 
     private boolean isTipClickFocus = false;//0 没有选择中  1 选择中
@@ -169,7 +169,7 @@ public class KeyBoardUtils {
                         if(isTipClickFocus ){
                             layout_con.setBackgroundColor(Color.parseColor("#80000000"));
                         }else{
-                            layout_con.setBackgroundColor(Color.parseColor("#00ffffff"));
+                            layout_con.setBackgroundColor(Color.parseColor(bgColor));
                         }
                         setViewFocus(!isTipClickFocus);
                     }
@@ -556,6 +556,7 @@ public class KeyBoardUtils {
      */
     public void setKeyboardBgColor(String bgColor) {
         if (layout_con != null) {
+            this.bgColor=bgColor;
             layout_con.setBackgroundColor(Color.parseColor(bgColor));
         }
     }
