@@ -1,6 +1,8 @@
 package com.mykeyboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -24,6 +26,17 @@ public class ScreenUtils {
                 .getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
+        System.out.println("helong_屏幕宽度="+outMetrics.widthPixels);
+        return outMetrics.widthPixels;
+    }
+
+    public static int getScreenWidth(Activity context) {
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+            context.getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
+        }else{
+            context.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        }
 //        System.out.println("helong_屏幕宽度="+outMetrics.widthPixels);
         return outMetrics.widthPixels;
     }

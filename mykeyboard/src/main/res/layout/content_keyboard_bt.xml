@@ -38,18 +38,41 @@
                 android:gravity="center_vertical"
                 android:background="#0000ff00"
                 android:padding="6dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/rl_scale_add"
                 android:layout_centerVertical="true">
                 <ImageView
                     android:id="@+id/tv_scale"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginLeft="15dp"
+
                     android:clickable="true"
-                    android:background="@drawable/img_scale_del"
+                    android:background="@drawable/img_scale_add"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginRight="15dp"
+
                     android:layout_centerVertical="true"
-                    ></ImageView>
+                    >
+                    </ImageView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="#0000ff00"
+                android:layout_toRightOf="@id/rl_scale_add"
+                android:padding="6dp"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/tv_scale_del"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:clickable="true"
+
+                    android:background="@drawable/img_scale_del"
+
+                    android:layout_centerVertical="true"
+                    >
+                </ImageView>
             </RelativeLayout>
 
         </RelativeLayout>

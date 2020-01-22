@@ -92,7 +92,7 @@ public class KeyBoardUtils {
 
     //缩放比例
     private float scale_X = 1f;
-    private ImageView tv_scale;
+    private ImageView tv_scale,tv_scale_del;
 
     private String FouceBg= "#00ff00";//按键获取焦点背景色
     private String bgColor ="#00fffffff";//键盘背景色
@@ -120,7 +120,25 @@ public class KeyBoardUtils {
         layout_zifu_com = rl_keyboard.findViewById(R.id.layout_zifu_com);
         layout_con = rl_keyboard.findViewById(R.id.layout_con);
         tv_scale = rl_keyboard.findViewById(R.id.tv_scale);
-        tv_scale.setTag("scaleX");
+
+        tv_scale_del =rl_keyboard.findViewById(R.id.tv_scale_del);
+        tv_scale_del.setTag("scaleX_del");
+        tv_scale_del.setOnClickListener(btnOnClickListener);
+        tv_scale_del.setFocusable(true);
+        views.add(tv_scale_del);
+        tv_scale_del.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                View parent= (View) view.getParent();
+                if(b){
+                    parent.setBackgroundColor(Color.parseColor(FouceBg));
+                }else{
+                    parent.setBackgroundColor(Color.parseColor("#00ffffff"));
+                }
+            }
+        });
+
+        tv_scale.setTag("scaleX_add");
         views.add(tv_scale);
         tv_scale.setOnClickListener(btnOnClickListener);
         tv_scale.setFocusable(true);
@@ -141,10 +159,12 @@ public class KeyBoardUtils {
             rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.GONE);
             rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.GONE);
             tv_scale.setVisibility(View.GONE);
+            tv_scale_del.setVisibility(View.GONE);
         } else {
             rl_keyboard.findViewById(R.id.tv_tip).setVisibility(View.VISIBLE);
             rl_keyboard.findViewById(R.id.tv_line).setVisibility(View.VISIBLE);
             tv_scale.setVisibility(View.VISIBLE);
+            tv_scale_del.setVisibility(View.VISIBLE);
             init_touthMove(layout_con);
             setKeyboardWidth(1f);
             if(this.devices_type == DEVICES_TYPE_TV){//TV的话需要处理焦点问题
@@ -190,6 +210,7 @@ public class KeyBoardUtils {
         init_shuzi(rl_keyboard);//初始化数字
         set_type(keyboard_Type);//根据类型选择显示的键盘
         hide();
+        set_scaleX(true);
         return true;
     }
 
@@ -273,6 +294,40 @@ public class KeyBoardUtils {
                 if (this.scale_X <= 0.5f) {
                     this.scale_X =0.5f;
                 }
+            }
+            setKeyboardWidth(this.scale_X);
+        }
+    }
+    private void set_scaleX(boolean b) {
+        if (layout_con != null) {
+            if(b){//正在放大
+                this.scale_X = this.scale_X + 0.1f;
+                if (this.scale_X >= 1f) {
+                    this.scale_X =1f;
+                    //变大图标不可点击
+                    tv_scale.setClickable(false);
+                    tv_scale.setBackgroundResource(R.drawable.img_scale_add_disable);
+                }else{
+                    //变大图标可点击
+                    tv_scale.setClickable(true);
+                    tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+                }
+                tv_scale_del.setClickable(true);
+                tv_scale_del.setBackgroundResource(R.drawable.img_scale_del);
+            }else{//正在缩小
+                this.scale_X = this.scale_X - 0.1f;
+                if (this.scale_X <= 0.5f) {
+                    this.scale_X =0.5f;
+                    //变小图标不可点击
+                    tv_scale_del.setClickable(false);
+                    tv_scale_del.setBackgroundResource(R.drawable.img_scale_del_disable);
+                }else{
+                    //变小图标可点击
+                    tv_scale_del.setClickable(true);
+                    tv_scale_del.setBackgroundResource(R.drawable.img_scale_del);
+                }
+                tv_scale.setClickable(true);
+                tv_scale.setBackgroundResource(R.drawable.img_scale_add);
             }
             setKeyboardWidth(this.scale_X);
         }
@@ -420,8 +475,12 @@ public class KeyBoardUtils {
 //            System.out.println("您按下了："+view.getTag());
             int code = -999;
             if (view.getTag() != null) {
-                if (view.getTag().toString().trim().equals("scaleX")) {
-                    set_scaleX();
+                if (view.getTag().toString().trim().equals("scaleX_add")) {
+                    set_scaleX(true);
+                    return;
+                }
+                if (view.getTag().toString().trim().equals("scaleX_del")) {
+                    set_scaleX(false);
                     return;
                 }
                 if (view.getTag().toString().contains("code")) {
@@ -701,12 +760,12 @@ public class KeyBoardUtils {
         }
         if (num >= 1) {//最大等于宽
             num = 1;
-            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
+//            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
             isSaleAdd =false;
         }
         if (num <= 0.5) {//最小0.5倍    0.45也可以
             num = 0.5f;
-            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+//            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
             isSaleAdd =true;
         }
         int width = ScreenUtils.getScreenWidth(mActivity);
