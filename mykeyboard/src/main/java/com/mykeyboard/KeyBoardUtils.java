@@ -424,6 +424,8 @@ public class KeyBoardUtils {
         if(this.devices_type == DEVICES_TYPE_ANDROID){
             return;
         }
+        rl_keyboard.findViewById(R.id.tv_tip).setNextFocusRightId(R.id.tv_scale);
+        tv_scale.setNextFocusLeftId(R.id.tv_tip);
 
         bt_coms[0].setNextFocusLeftId(R.id.bt10);//q 左边是 p
         bt_coms[9].setNextFocusRightId(R.id.bt1);//p 右边是 q
