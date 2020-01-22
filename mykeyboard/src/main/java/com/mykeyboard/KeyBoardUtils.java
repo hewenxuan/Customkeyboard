@@ -102,9 +102,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 
     //缩放比例
     private float scale_X = 1f;
-    private ImageView tv_scale;
-
-    private String FouceBg= "#00ff00";
+    private ImageView tv_scale,tv_scale_del;
 
     private List<View> views ;
 
@@ -113,7 +111,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     private TextView tv_zh;
 
     private boolean isTipClickFocus = false;//0 没有选择中  1 选择中 拖动用
-
+    private String FouceBg= "#00ff00";//按键获取焦点背景色
     private String bgColor= "#00ffffff";//键盘背景
     private boolean init(final Activity mContext, int keyboard_Type,String devices_type) {
         if (keyboard_Type > 4) {//键盘模式只能到4
@@ -148,8 +146,26 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         layout_num = rl_keyboard.findViewById(R.id.layout_num);
         layout_zifu_com = rl_keyboard.findViewById(R.id.layout_zifu_com);
         layout_con = rl_keyboard.findViewById(R.id.layout_con);
+
+        tv_scale_del =rl_keyboard.findViewById(R.id.tv_scale_del);
+        tv_scale_del.setTag("scaleX_del");
+        tv_scale_del.setOnClickListener(btnOnClickListener);
+        tv_scale_del.setFocusable(true);
+        views.add(tv_scale_del);
+        tv_scale_del.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                View parent= (View) view.getParent();
+                if(b){
+                    parent.setBackgroundColor(Color.parseColor(FouceBg));
+                }else{
+                    parent.setBackgroundColor(Color.parseColor("#00ffffff"));
+                }
+            }
+        });
+
         tv_scale = rl_keyboard.findViewById(R.id.tv_scale);
-        tv_scale.setTag("scaleX");
+        tv_scale.setTag("scaleX_add");
         views.add(tv_scale);
         tv_scale.setOnClickListener(btnOnClickListener);
         tv_scale.setFocusable(true);
@@ -232,6 +248,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         hide();
         ckManager = new CloudKeyboardInputManager();
         ckManager.setOnPinyinQueryed(this);
+        set_scaleX(true);
         return true;
     }
     public  String packageNmae= "";//包名;
@@ -247,6 +264,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         rl_keyboard.findViewById(R.id.tv_tip).setVisibility(isVisible);
         rl_keyboard.findViewById(R.id.tv_line).setVisibility(isVisible);
         tv_scale.setVisibility(isVisible);
+        tv_scale_del.setVisibility(isVisible);
     }
 
     private  CloudKeyboardInputManager ckManager;
@@ -332,6 +350,41 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                 if (this.scale_X <= 0.5f) {
                     this.scale_X =0.5f;
                 }
+            }
+            setKeyboardWidth(this.scale_X);
+        }
+    }
+
+    private void set_scaleX(boolean b) {
+        if (layout_con != null) {
+            if(b){//正在放大
+                this.scale_X = this.scale_X + 0.1f;
+                if (this.scale_X >= 1f) {
+                    this.scale_X =1f;
+                    //变大图标不可点击
+                    tv_scale.setClickable(false);
+                    tv_scale.setBackgroundResource(R.drawable.img_scale_add_disable);
+                }else{
+                    //变大图标可点击
+                    tv_scale.setClickable(true);
+                    tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+                }
+                tv_scale_del.setClickable(true);
+                tv_scale_del.setBackgroundResource(R.drawable.img_scale_del);
+            }else{//正在缩小
+                this.scale_X = this.scale_X - 0.1f;
+                if (this.scale_X <= 0.5f) {
+                    this.scale_X =0.5f;
+                    //变小图标不可点击
+                    tv_scale_del.setClickable(false);
+                    tv_scale_del.setBackgroundResource(R.drawable.img_scale_del_disable);
+                }else{
+                    //变小图标可点击
+                    tv_scale_del.setClickable(true);
+                    tv_scale_del.setBackgroundResource(R.drawable.img_scale_del);
+                }
+                tv_scale.setClickable(true);
+                tv_scale.setBackgroundResource(R.drawable.img_scale_add);
             }
             setKeyboardWidth(this.scale_X);
         }
@@ -457,6 +510,8 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         if(this.devices_type == DEVICES_TYPE_ANDROID){
             return;
         }
+        tv_scale.setNextFocusLeftId(R.id.tv_tip);
+        rl_keyboard.findViewById(R.id.tv_tip).setNextFocusRightId(R.id.tv_scale);
 
         bt_coms[0].setNextFocusLeftId(R.id.bt10);//q 左边是 p
         bt_coms[9].setNextFocusRightId(R.id.bt1);//p 右边是 q
@@ -509,8 +564,12 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 //            System.out.println("您按下了："+view.getTag());
             int code = -999;
             if (view.getTag() != null) {
-                if (view.getTag().toString().trim().equals("scaleX")) {
-                    set_scaleX();
+                if (view.getTag().toString().trim().equals("scaleX_add")) {
+                    set_scaleX(true);
+                    return;
+                }
+                if (view.getTag().toString().trim().equals("scaleX_del")) {
+                    set_scaleX(false);
                     return;
                 }
                 if (view.getTag().toString().contains("code")) {
@@ -872,12 +931,12 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
         }
         if (num >= 1) {//最大等于宽
             num = 1;
-            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
+//            tv_scale.setBackgroundResource(R.drawable.img_scale_del);
             isSaleAdd =false;
         }
         if (num <= 0.5) {//最小0.5倍    0.45也可以
             num = 0.5f;
-            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
+//            tv_scale.setBackgroundResource(R.drawable.img_scale_add);
             isSaleAdd =true;
         }
         int width = ScreenUtils.getScreenWidth(mActivity);
