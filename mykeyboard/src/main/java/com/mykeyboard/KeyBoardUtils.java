@@ -781,18 +781,20 @@ public class KeyBoardUtils {
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 //        Params.leftMargin=0;
-        if(Params.leftMargin <= 0){
-            Params.leftMargin =0;
-        }
-        if(width - (width * num) < Params.leftMargin){
-            Params.leftMargin = (int) (width - (width * num));
-        }
-
-        if(num == 1){
-//            Params.leftMargin=0;
-//            Params.rightMargin=0;
-            if(devices_type == DEVICES_TYPE_TV){
+        if(devices_type == DEVICES_TYPE_TV){
+            if(layout_con.getX()<= 0){
+                layout_con.setX(0);
+            }
+            if(width - (width * num) < layout_con.getX()){
+                layout_con.setX((int) (width - (width * num)));
+            }
+        }else{
+            if(Params.leftMargin <= 0){
+                Params.leftMargin =0;
                 layout_con.setX(0);//安卓掉用这个会显示不正常
+            }
+            if(width - (width * num) < Params.leftMargin){
+                Params.leftMargin = (int) (width - (width * num));
             }
         }
         layout_con.setLayoutParams(Params);
