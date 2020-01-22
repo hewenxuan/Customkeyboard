@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 软键盘工具类带edittext
+ * 软键盘工具类
  *
  * @version V1.0 <软键盘工具类>
  * @FileName: com.example.mycustomkeyboard.KeyBoardUtils.java
