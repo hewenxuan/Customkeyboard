@@ -779,10 +779,18 @@ public class KeyBoardUtils {
 //        Params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //        Params.addRule(RelativeLayout.CENTER_VERTICAL);
 //        Params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//        Params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//        Params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+//        Params.leftMargin=0;
+        if(Params.leftMargin <= 0){
+            Params.leftMargin =0;
+        }
+        if(width - (width * num) < Params.leftMargin){
+            Params.leftMargin = (int) (width - (width * num));
+        }
+
         if(num == 1){
-            Params.leftMargin=0;
-            Params.rightMargin=0;
+//            Params.leftMargin=0;
+//            Params.rightMargin=0;
             if(devices_type == DEVICES_TYPE_TV){
                 layout_con.setX(0);//安卓掉用这个会显示不正常
             }
