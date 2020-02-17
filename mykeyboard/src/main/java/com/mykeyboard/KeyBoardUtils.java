@@ -233,11 +233,26 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
 //                });
             }
         }
-        rl_keyboard.setClickable(true);
-        rl_keyboard.setOnClickListener(new View.OnClickListener(){
+//        rl_keyboard.setClickable(true);
+//        rl_keyboard.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                hide();
+//            }
+//        });
+        rl_keyboard.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                hide();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
+//                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
+                        if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
+                            hide();
+                        }
+                        break;
+                }
+                return true;
             }
         });
         init_coms(rl_keyboard);
@@ -253,6 +268,34 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
     public  String packageNmae= "";//包名;
 
+    private  int  x0 = 0,x1 = 0,y0 = 0,y1 = 0 ;  //  可点击范围
+
+    /**
+     * 设置屏幕上下左右位置（点击不隐藏键盘）
+     * @param x0  屏幕左边距离
+     * @param x1  屏幕右边距离
+     * @param y0  屏幕上边距离
+     * @param y1  屏幕下边距离
+     */
+    public void setX0X1Y0Y1(int x0,int x1,int y0,int y1){
+        screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
+        screenWidth = ScreenUtils.getScreenWidth(mActivity);//屏幕高度-状态栏
+        this.x0 = x0;
+        this.x1 = screenWidth - x1;
+        this.y0 = y0;
+        this.y1 = screenHeight - y1;
+    }
+
+    /**
+     * 获取键盘高度
+     * @return
+     */
+    public int getKeyboardHeight(){
+        if(rl_keyboard!=null){
+            return layout_con.getHeight();
+        }
+        return 0;
+    }
 
     //设置缩放是否隐藏 竖屏隐藏  ，横屏有中文得时候隐藏
     private void setScaleVisible(int isVisible){

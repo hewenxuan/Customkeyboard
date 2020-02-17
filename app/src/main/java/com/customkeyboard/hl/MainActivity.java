@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         KeyBoardUtils.getInstance().show();
+
+        KeyBoardUtils.getInstance().setX0X1Y0Y1(100,100,100,100);
     }
 
     //mycustomkeyboard 用法
