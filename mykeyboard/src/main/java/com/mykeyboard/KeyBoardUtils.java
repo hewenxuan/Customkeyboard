@@ -291,14 +291,22 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
     }
 
     /**
-     * 获取键盘高度
-     * @return
+     * 获取 键盘距离上下左右的距离
+     * @return  数组 分别是键盘对应屏幕 上下左右 距离
      */
-    public int getKeyboardHeight(){
-        if(rl_keyboard!=null){
-            return layout_con.getHeight();
+    public int[] getKeyboardInfo(){
+        int[] info = new int[4];
+        screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
+        if(ScreenUtils.isAllScreenDevice(mActivity)){//全面屏幕
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) -ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
+        }else{
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) ;//屏幕高度
         }
-        return 0;
+        info[0] = (int) layout_con.getY();
+        info[1] = screenHeight-(int) layout_con.getY() - layout_con.getHeight();
+        info[2] = (int) layout_con.getX();
+        info[3] = screenWidth -(int) layout_con.getX() - layout_con.getWidth();
+        return info;
     }
 
     //设置缩放是否隐藏 竖屏隐藏  ，横屏有中文得时候隐藏
