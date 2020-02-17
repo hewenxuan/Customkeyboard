@@ -63,9 +63,21 @@ public class MainActivity extends AppCompatActivity {
                }else if(primaryCode >0 ){
                     tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
                 }
+                System.out.println("键盘高度："+KeyBoardUtils.getInstance().getKeyboardHeight());
+
             }
         });
         KeyBoardUtils.getInstance().show();
+
+        /**
+         * 设置屏幕上下左右位置（点击不隐藏键盘）
+         * @param x0  屏幕左边距离
+         * @param x1  屏幕右边距离
+         * @param y0  屏幕上边距离
+         * @param y1  屏幕下边距离
+         */
+        KeyBoardUtils.getInstance().setX0X1Y0Y1(100,100,100,100);
+
     }
 
     //mycustomkeyboard 用法
