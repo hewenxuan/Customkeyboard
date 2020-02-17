@@ -210,8 +210,8 @@ public class KeyBoardUtils {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
-//                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
-                        if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
+//                                System.out.println("起始位置为："+"("+event.getRawX()+" , "+event.getRawY()+")");
+                        if((event.getRawX() >= x0 && event.getRawX() <= x1 )&& (event.getRawY() >= y0 && event.getRawY() <= y1 )){
                             hide();
                         }
                         if(x0 == 0 && x1 == 0 && y0 == 0 && y1 == 0){
