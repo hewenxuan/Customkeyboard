@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                }else if(primaryCode >0 ){
                     tv_test.setText(tv_test.getText().toString()+Character.toString((char) primaryCode));
                 }
-                System.out.println("键盘高度："+KeyBoardUtils.getInstance().getKeyboardHeight());
+                System.out.println("键盘信息："+KeyBoardUtils.getInstance().getKeyboardInfo());
 
             }
         });

@@ -208,7 +208,7 @@ public class KeyBoardUtils {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_UP:
                         //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
 //                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
                         if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
@@ -255,14 +255,22 @@ public class KeyBoardUtils {
     }
 
     /**
-     * 获取键盘高度
-     * @return
+     * 获取 键盘距离上下左右的距离
+     * @return  数组 分别是键盘对应屏幕 上下左右 距离
      */
-    public int getKeyboardHeight(){
-        if(rl_keyboard!=null){
-            return layout_con.getHeight();
+    public int[] getKeyboardInfo(){
+        int[] info = new int[4];
+        screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
+        if(ScreenUtils.isAllScreenDevice(mActivity)){//全面屏幕
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) -ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
+        }else{
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) ;//屏幕高度
         }
-        return 0;
+        info[0] = (int) layout_con.getY();
+        info[1] = screenHeight-(int) layout_con.getY() - layout_con.getHeight();
+        info[2] = (int) layout_con.getX();
+        info[3] = screenWidth -(int) layout_con.getX() - layout_con.getWidth();
+        return info;
     }
 
     //设置焦点
