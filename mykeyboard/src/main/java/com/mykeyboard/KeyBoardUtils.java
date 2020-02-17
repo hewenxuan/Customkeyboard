@@ -202,26 +202,26 @@ public class KeyBoardUtils {
 //                        hide();
 //                    }
 //                });
-                rl_keyboard.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
-//                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
-                                if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
-                                    hide();
-                                }
-                                if(x0 == 0 && x1 == 0 && y0 == 0 && y1 == 0){
-                                    hide();
-                                }
-                                break;
-                        }
-                        return true;
-                    }
-                });
             }
         }
+        rl_keyboard.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
+//                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
+                        if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
+                            hide();
+                        }
+                        if(x0 == 0 && x1 == 0 && y0 == 0 && y1 == 0){
+                            hide();
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
         init_coms(rl_keyboard);
         init_zimu(rl_keyboard);//初始化字母
         init_zifu(rl_keyboard);//初始化字符
@@ -243,7 +243,11 @@ public class KeyBoardUtils {
      */
     public void setX0X1Y0Y1(int x0,int x1,int y0,int y1){
         screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
-        screenWidth = ScreenUtils.getScreenWidth(mActivity);//屏幕高度-状态栏
+        if(ScreenUtils.isAllScreenDevice(mActivity)){//全面屏幕
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) -ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
+        }else{
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) ;//屏幕高度
+        }
         this.x0 = x0;
         this.x1 = screenWidth - x1;
         this.y0 = y0;
@@ -276,7 +280,11 @@ public class KeyBoardUtils {
         if(isTipClickFocus&& event.getAction() == KeyEvent.ACTION_DOWN){
 //          System.out.println("您按下了dispatchKeyEvent："+event.getKeyCode());
             screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
-            screenWidth = ScreenUtils.getScreenWidth(mActivity);//屏幕高度-状态栏
+            if(ScreenUtils.isAllScreenDevice(mActivity)){//全面屏幕
+                screenWidth = ScreenUtils.getScreenWidth(mActivity) -ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
+            }else{
+                screenWidth = ScreenUtils.getScreenWidth(mActivity) ;//屏幕高度
+            }
 //            System.out.println("===_状态栏=" +ScreenUtils.getStatusHeight(mActivity) );
 //            System.out.println("===_应用宽=" + screenWidth + "应用高：" + screenHeight);
 //            System.out.println("===_键盘宽=" + layout_con.getWidth() + "键盘高：" + layout_con.getHeight());
@@ -605,7 +613,11 @@ public class KeyBoardUtils {
 
     private void init_touthMove(final View view) {
         screenHeight = ScreenUtils.getScreenHeight(mActivity);//获取屏幕宽度
-        screenWidth = ScreenUtils.getScreenWidth(mActivity);//屏幕高度-状态栏
+        if(ScreenUtils.isAllScreenDevice(mActivity)){//全面屏幕
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) -ScreenUtils.getStatusHeight(mActivity);//屏幕高度-状态栏
+        }else{
+            screenWidth = ScreenUtils.getScreenWidth(mActivity) ;//屏幕高度
+        }
         System.out.println("helong_应用宽=" + screenWidth + "应用高：" + screenHeight);
         view.setOnTouchListener(null);
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -624,11 +636,11 @@ public class KeyBoardUtils {
                         if (top <= 0) {
                             top = 0;
                         }
-                        if (top >= screenHeight - view.getHeight()) {
-                            top = screenHeight - view.getHeight();
+                        if (top >= screenHeight - v.getHeight()) {
+                            top = screenHeight - v.getHeight();
                         }
-                        if (left >= screenWidth - view.getWidth()) {
-                            left = screenWidth - view.getWidth();
+                        if (left >= screenWidth - v.getWidth()) {
+                            left = screenWidth - v.getWidth();
                         }
                         if (left < 0) {
                             left = 0;
