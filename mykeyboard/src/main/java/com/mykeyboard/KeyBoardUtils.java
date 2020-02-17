@@ -247,7 +247,7 @@ public class KeyBoardUtils implements OnCandidateSelected, OnPinyinQueryed {
                     case MotionEvent.ACTION_DOWN:
                         //按下的时候判断 按下区域是否在可点击区域。不是的话 不隐藏
 //                                System.out.println("起始位置为："+"("+event.getX()+" , "+event.getY()+")");
-                        if((event.getX() >= x0 && event.getX() <= x1 )&& (event.getY() >= y0 && event.getY() <= y1 )){
+                        if((event.getRawX() >= x0 && event.getRawX() <= x1 )&& (event.getRawY() >= y0 && event.getRawY() <= y1 )){
                             hide();
                         }
                         break;
